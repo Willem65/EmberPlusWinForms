@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reflection.Metadata" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Lawo">
+      <HintPath>bin\Debug\net8.0-windows\Lawo.dll</HintPath>
+    </Reference>
+    <Reference Include="Lawo.EmberPlusSharp">
+      <HintPath>bin\Debug\net8.0-windows\Lawo.EmberPlusSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
