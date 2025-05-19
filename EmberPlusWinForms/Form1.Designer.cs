@@ -83,6 +83,7 @@
             button39 = new Button();
             button40 = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
+            checkBox2 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
@@ -681,12 +682,24 @@
             timer1.Interval = 10;
             timer1.Tick += timer1_Tick;
             // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(669, 13);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(63, 19);
+            checkBox2.TabIndex = 54;
+            checkBox2.Text = "Loging";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox2_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.LemonChiffon;
+            BackColor = Color.White;
             ClientSize = new Size(1248, 745);
+            Controls.Add(checkBox2);
             Controls.Add(button21);
             Controls.Add(button22);
             Controls.Add(button23);
@@ -813,5 +826,6 @@
         private Button button39;
         private Button button40;
         private System.Windows.Forms.Timer timer1;
+        private CheckBox checkBox2;
     }
 }

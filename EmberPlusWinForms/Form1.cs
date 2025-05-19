@@ -17,6 +17,9 @@ namespace EmberPlusWinForms
     public partial class Form1 : Form
     {
         bool checkboxEnabled = false;
+        // Change the accessibility of the 'checkboxloggingEnabled' field to 'public' to fix the CS0122 error.
+        public bool checkboxloggingEnabled;
+
         int buttonNR = 1;
         private FaderManager faderManager;
         private ButtonManager buttonManager;
@@ -373,10 +376,7 @@ namespace EmberPlusWinForms
         {
 
         }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            timer1.Enabled = checkBox1.Checked;
-        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -665,6 +665,16 @@ namespace EmberPlusWinForms
         {
             isOn = !isOn;
             button30.Tag = isOn;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            timer1.Enabled = checkBox1.Checked;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkboxloggingEnabled = checkBox2.Checked;
         }
 
         //private void timer1_Tick_1(object sender, EventArgs e)

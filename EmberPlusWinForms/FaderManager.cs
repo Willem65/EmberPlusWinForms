@@ -47,9 +47,11 @@ namespace EmberPlusWinForms
                         int clampedValue = Math.Min(Math.Max((int)updatedValue, trackBar.Minimum), trackBar.Maximum);
                         if (trackBar.Value != clampedValue)
                             trackBar.Value = clampedValue;
-
-                        Form1.instanse.listBox1.Items.Add("IN <---- " + updatedValue.ToString());
-                        Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                        if (Form1.instanse.checkboxloggingEnabled)
+                        {
+                            Form1.instanse.listBox1.Items.Add("IN <---- " + updatedValue.ToString());
+                            Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                        }
 
                     }));
                 };
@@ -68,8 +70,11 @@ namespace EmberPlusWinForms
         {
             param.Value = (long)tb.Value;
             //await Task.Delay(10); // Simulating async operation
-            Form1.instanse.listBox1.Items.Add("OUT ----> " + tb.Value.ToString());
-            Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+            if (Form1.instanse.checkboxloggingEnabled)
+            {
+                Form1.instanse.listBox1.Items.Add("OUT ----> " + tb.Value.ToString());
+                Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+            }
         }
     }
 }
