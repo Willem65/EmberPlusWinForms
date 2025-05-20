@@ -72,6 +72,7 @@ namespace EmberPlusWinForms
             //await Task.Delay(10); // Simulating async operation
             if (Form1.instanse.checkboxloggingEnabled)
             {
+
                 Form1.instanse.listBox1.Items.Add("OUT ----> " + tb.Value.ToString());
                 Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
             }
