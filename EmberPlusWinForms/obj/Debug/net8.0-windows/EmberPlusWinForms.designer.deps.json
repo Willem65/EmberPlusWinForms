@@ -1,0 +1,46 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "System.Collections.Immutable/9.0.5": {
+        "runtime": {
+          "lib/net8.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.21509"
+          }
+        }
+      },
+      "System.Reflection.Metadata/9.0.5": {
+        "dependencies": {
+          "System.Collections.Immutable": "9.0.5"
+        },
+        "runtime": {
+          "lib/net8.0/System.Reflection.Metadata.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.21509"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "System.Collections.Immutable/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lVPwqkFWucEB13zcXpvMCmG+xp0HTSxVyAiG7c0AC8qsQ1ZaC5O8evb9QGR6PKmJZch3VuFKnzkl+SA78dvjeA==",
+      "path": "system.collections.immutable/9.0.5",
+      "hashPath": "system.collections.immutable.9.0.5.nupkg.sha512"
+    },
+    "System.Reflection.Metadata/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ulMSHTq7/6g8ZWFFPSQreZqe7FIrPXOyq7rXUsmfQX3d/sK2wqEBxxFeWeuQBxrVXEj+w+UremzgcjWdJaIh1A==",
+      "path": "system.reflection.metadata/9.0.5",
+      "hashPath": "system.reflection.metadata.9.0.5.nupkg.sha512"
+    }
+  }
+}

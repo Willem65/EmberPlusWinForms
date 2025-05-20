@@ -9,8 +9,8 @@
 .vscode/
 
 # Build output (should not be committed)
-bin/
-obj/
+# bin/
+# obj/
 
 # Dependencies (NuGet packages can be restored)
 packages/
