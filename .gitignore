@@ -6,15 +6,15 @@
 # # *.pdb
 
 # Visual Studio Code workspace settings
-.vscode/
+#.vscode/
 
 # Build output (should not be committed)
 # bin/
 # obj/
 
 # Dependencies (NuGet packages can be restored)
-packages/
-*.nuget/
+# packages/
+# *.nuget/
 
 # User-specific and IDE configuration files (not needed in Git)
 *.user
