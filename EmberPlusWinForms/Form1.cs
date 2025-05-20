@@ -26,6 +26,7 @@ namespace EmberPlusWinForms
         public static Form1 instanse;
 
 
+
         public Form1()
         {
             InitializeComponent();
