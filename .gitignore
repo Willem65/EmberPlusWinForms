@@ -38,7 +38,7 @@ _ReSharper*/
 # Visual Studio-related cache and index files
 .vs/
 
-# Ensure UI-related files are **tracked** in Git (DO NOT ignore)
-#!*.Designer.cs  <- Removing this so UI files are included
-#!*.resx
-#!*.xaml
+Ensure UI-related files are **tracked** in Git (DO NOT ignore)
+!*.Designer.cs  <- Removing this so UI files are included
+!*.resx
+!*.xaml
