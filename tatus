@@ -1,0 +1,113 @@
+[33mcommit 4fd7893f901838f92e01cb69fbd560d2cc2de23b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 21:50:37 2025 +0200
+
+    Moeten commiten vanaf thuis?
+
+[33mcommit 72f70e553f86e022b3d564e5ebdb685d7221b424[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 13:30:56 2025 +0200
+
+    nogmaals
+
+[33mcommit 173cd751fc3582666fa36dd6da526a496deaceb6[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 13:22:10 2025 +0200
+
+    nogmaals push
+
+[33mcommit b1605f0633c8482f1e27b09f6518d2c9f2bb40b5[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 13:17:24 2025 +0200
+
+    ignore file aangepast
+
+[33mcommit 0d4be7dd5ff039fa33da0fcae6ca47d19ef48683[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 03:02:03 2025 +0200
+
+    ik vergat alle wijzigingen te pushen
+
+[33mcommit 3bdd6967d6418cdcfdcac87e876b310d9947a9b5[m
+Author: --replace <your-email@example.com>
+Date:   Thu May 22 02:58:30 2025 +0200
+
+    In form1 het nodige geoptimaliseerd, en gedeeltelijk de oorspronkelijke code uit gedocumenteerd
+
+[33mcommit b5d942f1ca0837223d50d88b5bda3787c664fea3[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:25:56 2025 +0200
+
+    test push
+
+[33mcommit 8d87af1277fed5ebfd82f5c241b615c5dd521873[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:24:41 2025 +0200
+
+    nogmaals
+
+[33mcommit a776ddbc23a6bc58b07108201409c5303dadaa01[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:18:49 2025 +0200
+
+    nogmaals ignore aangepast
+
+[33mcommit 4fa29114364fc25ccb4503b78fa312a5d61b6201[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:16:47 2025 +0200
+
+    nogmaals
+
+[33mcommit f10179a54832e364844c695c77b7fb6ae5a9f7b4[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:15:21 2025 +0200
+
+    nogmaals
+
+[33mcommit 06a2cabff2add56d82303db097353eadbc5e8aa2[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:14:37 2025 +0200
+
+    nogmaals ignore aangepst , alles eruit
+
+[33mcommit 1073d9243e89e802605481797a5856428124e5d3[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 20:02:09 2025 +0200
+
+    nogmaals met andere ignore file
+
+[33mcommit 8996a22a642ecb96424268f7ea158353b1cd4019[m
+Author: --replace <your-email@example.com>
+Date:   Tue May 20 19:42:54 2025 +0200
+
+    De ignore file verwijdert, en weer geprobeert het te pushen naar github
+
+[33mcommit 1f8b5764c18a4cc761bbf04ed5f378734ea84485[m
+Author: --replace <your-email@example.com>
+Date:   Mon May 19 23:28:20 2025 +0200
+
+    Checkbox voor loging toegevoegd
+
+[33mcommit 019affc5769e02edb95ff6db2bf20b7e4dad87d0[m
+Author: --replace <your-email@example.com>
+Date:   Mon May 19 22:33:07 2025 +0200
+
+    Backcolor form1 lichtgeel gemaakt
+
+[33mcommit b606cdb726555f1731e12e56ef1897454a0a5f9c[m
+Author: --replace <your-email@example.com>
+Date:   Mon May 19 22:23:32 2025 +0200
+
+    Background color van form1 veranderd
+
+[33mcommit 47076cc78ac4d67a71312410d4a4c38842c1d666[m
+Author: --replace <your-email@example.com>
+Date:   Mon May 19 22:13:02 2025 +0200
+
+    Add project files.
+
+[33mcommit 5ac107cd9106108051d43fed1a0d148e3611d38c[m
+Author: --replace <your-email@example.com>
+Date:   Mon May 19 22:13:00 2025 +0200
+
+    Add .gitattributes and .gitignore.

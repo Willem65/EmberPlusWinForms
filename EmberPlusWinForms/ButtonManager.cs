@@ -6,34 +6,28 @@ namespace EmberPlusWinForms
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Reflection;
     using System.Threading.Tasks;
     using System.Windows.Forms;
-    using static System.Windows.Forms.AxHost;
 
     class ButtonManager
     {       
         private readonly List<IParameter> _parameters;
         private readonly List<Button> _buttons;
         private Timer timer2;
-        private int teller;
         private List<Button> blinkingButtons = new List<Button>();
-        private Color currentcolor;
         private Dictionary<Button, Color> originalColors = new Dictionary<Button, Color>();
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
+        private void timer2_Tick(object sender, EventArgs e)  // laat de knoppen knipperen
+        {        
             for (int i = 0; i < blinkingButtons.Count; i++)
             {
                 Button btn = blinkingButtons[i];
                 Color originalColor = originalColors[btn];
                 btn.BackColor = btn.BackColor == originalColor ? Color.Transparent : originalColor;
             }
-            //Form1.instanse.listBox1.Items.Add($"IN <---- module: {teller++}");
-            //Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
         }
 
-        public ButtonManager(Form form, List<IParameter> parameters, List<Button> buttons)
+        public ButtonManager( List<IParameter> parameters, List<Button> buttons)
         {
             _parameters = parameters;
             _buttons = buttons;
@@ -50,7 +44,7 @@ namespace EmberPlusWinForms
 
             timer2.Tick += timer2_Tick;
 
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 4; i++)   // 40
             {
                 int index = i;
                 var button = _buttons[i];
@@ -71,15 +65,12 @@ namespace EmberPlusWinForms
                     timer2.Start();
                 }
 
-                parameter.PropertyChanged += (sender, args) =>
+                parameter.PropertyChanged += (sender, args) =>   // Handle receiving data (Ember+ update UI)
                 {
                     var param = sender as IParameter;
-                    //int t = param.Path[2];
-                    //int u = param.Path[4];
-                    //button.Text = t.ToString() + "_" + u.ToString();
+                    button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
 
                     button.BackColor = DetermineBackColor((bool)param.Value, index);
-
                     int mode = Convert.ToInt32(_parameters[index + 40].Value);
 
                     if (mode > 0)
@@ -91,12 +82,14 @@ namespace EmberPlusWinForms
                     {
                         button.BackColor = DetermineBackColor((bool)parameter.Value, index);
                     }
-
-                    Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");
-                    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                    if (Form1.instanse.checkboxloggingEnabled)
+                    {
+                        Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");
+                        Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                    }
                 };
 
-                button.Click += async (s, e) =>
+                button.Click += async (s, e) =>            // Handle sending outgoing data (Button click sends value to Ember+)
                 {
                     await SyncButtonToEmberAsync(button, parameter);
                 };
@@ -105,14 +98,14 @@ namespace EmberPlusWinForms
 
         private Color DetermineBackColor(bool state, int index)
         {
-            int offset; // = state ? 80 : 120;
+            int offset = 0; // = state ? 80 : 120;
 
-            if (state)         // Stand van de switch
-                offset = 80;   // De on_color
+            if (state)         // Stand van de switch true ?
+                offset = 80;   // De on_color vanaf 80
             else 
-                offset = 120;  // De off_color
+                offset = 120;  // De off_color vanaf 120
 
-                return Convert.ToInt32(_parameters[index + offset].Value) switch
+            return Convert.ToInt32(_parameters[index + offset].Value) switch
                 {
                     0 => Color.Transparent,
                     1 => Color.Red,
@@ -128,8 +121,11 @@ namespace EmberPlusWinForms
             if (button.Tag is bool state)
             {
                 parameter.Value = state;
-                Form1.instanse.listBox1.Items.Add($"OUT ---->  Tag: {state}");
-                Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                if (Form1.instanse.checkboxloggingEnabled)
+                {
+                    Form1.instanse.listBox1.Items.Add($"OUT ---->  Tag: {state}");
+                    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                }
             }
             // Simulate async work (optional)
             await Task.CompletedTask;
