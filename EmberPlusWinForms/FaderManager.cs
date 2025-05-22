@@ -42,8 +42,8 @@ namespace EmberPlusWinForms
                 faderParam.PropertyChanged += (sender, args) =>
                 {
                     long updatedValue = (long)((IParameter)sender).Value;
-                    _ = _form.BeginInvoke((Action)(() =>
-                    {
+                   // _ = _form.BeginInvoke((Action)(() =>
+                  //  {
                         int clampedValue = Math.Min(Math.Max((int)updatedValue, trackBar.Minimum), trackBar.Maximum);
                         if (trackBar.Value != clampedValue)
                             trackBar.Value = clampedValue;
@@ -53,7 +53,8 @@ namespace EmberPlusWinForms
                             Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
                         }
 
-                    }));
+                   // }))
+                        ;
                 };
                 
                 // Handle outgoing data (UI to Ember+)
