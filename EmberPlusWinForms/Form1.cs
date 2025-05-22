@@ -83,7 +83,6 @@ namespace EmberPlusWinForms
         }
 
 
-
         public Consumer<GetSet.AuronRoot> consumer;
         private List<IParameter> faderParams;
         private INode root;
