@@ -1,9 +1,11 @@
 # Compiled binary files (keep projects clean)
-# # *.dll
-# # *.exe
-# # *.so
-# # *.dylib
-# # *.pdb
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+*.csproj
+*.json
 
 # Visual Studio Code workspace settings
 #.vscode/
