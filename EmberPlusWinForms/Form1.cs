@@ -62,8 +62,6 @@ namespace EmberPlusWinForms
                 Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
             }
 
-
-
             root = consumer.Root;
 
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------
