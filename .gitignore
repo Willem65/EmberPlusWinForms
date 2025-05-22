@@ -4,6 +4,8 @@
 *.so
 *.dylib
 *.pdb
+*.csproj
+*.json
 
 # Visual Studio Code workspace settings
 #.vscode/
