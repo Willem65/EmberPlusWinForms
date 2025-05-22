@@ -78,10 +78,242 @@ namespace EmberPlusWinForms
 
         //-------------------------------------------------------------------------------------------------------------------------------------
 
+        //////private sealed class MyRoot : DynamicRoot<MyRoot>
+        //////{
+        //////}
+
+
+        //////public Consumer<GetSet.AuronRoot> consumer;
+        //////private List<IParameter> faderParams;
+        //////private INode root;
+
+        //////private async Task StartEmberPlusListenerAsync()
+        //////{
+        //////    using var client = await ConnectAsync("localhost", 9000);
+        //////    consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+        //////    root = consumer.Root;
+
+        //////    faderParams = new List<IParameter>
+        //////    {
+        //////        consumer.Root.auron.modules.module_1.path.fader,
+        //////        consumer.Root.auron.modules.module_2.path.fader,
+        //////        consumer.Root.auron.modules.module_3.path.fader,
+        //////        consumer.Root.auron.modules.module_4.path.fader,
+        //////        consumer.Root.auron.modules.module_5.path.fader,
+        //////        consumer.Root.auron.modules.module_6.path.fader,
+        //////        consumer.Root.auron.modules.module_7.path.fader,
+        //////        consumer.Root.auron.modules.module_8.path.fader,
+        //////        consumer.Root.auron.modules.module_9.path.fader,
+        //////        consumer.Root.auron.modules.module_10.path.fader
+        //////    };
+
+
+        //////    var trackBars = new List<TrackBar>
+        //////    {
+        //////        trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
+        //////        trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
+        //////    };
+
+        //////    var faderManager = new FaderManager(this, faderParams, trackBars);
+        //////    faderManager.InitializeFaders();
+
+
+
+        //////    List<IParameter> buttonParams = new List<IParameter>
+        //////    {
+        //////        consumer.Root.auron.modules.module_1.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_2.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_3.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_4.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_5.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_6.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_7.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_8.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_9.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_10.control.sw_1.state,
+        //////        consumer.Root.auron.modules.module_1.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_2.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_3.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_4.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_5.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_6.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_7.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_8.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_9.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_10.control.sw_2.state,
+        //////        consumer.Root.auron.modules.module_1.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_2.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_3.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_4.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_5.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_6.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_7.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_8.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_9.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_10.control.sw_3.state,
+        //////        consumer.Root.auron.modules.module_1.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_2.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_3.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_4.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_5.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_6.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_7.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_8.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_9.control.sw_4.state,
+        //////        consumer.Root.auron.modules.module_10.control.sw_4.state,   // 40
+
+        //////        consumer.Root.auron.modules.module_1.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_2.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_3.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_4.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_5.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_6.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_7.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_8.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_9.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_10.control.sw_1.mode,
+        //////        consumer.Root.auron.modules.module_1.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_2.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_3.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_4.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_5.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_6.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_7.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_8.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_9.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_10.control.sw_2.mode,
+        //////        consumer.Root.auron.modules.module_1.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_2.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_3.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_4.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_5.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_6.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_7.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_8.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_9.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_10.control.sw_3.mode,
+        //////        consumer.Root.auron.modules.module_1.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_2.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_3.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_4.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_5.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_6.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_7.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_8.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_9.control.sw_4.mode,
+        //////        consumer.Root.auron.modules.module_10.control.sw_4.mode,    // 80
+
+        //////        consumer.Root.auron.modules.module_1.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_2.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_3.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_4.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_5.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_6.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_7.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_8.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_9.control.sw_1.color_on,
+        //////       consumer.Root.auron.modules.module_10.control.sw_1.color_on,
+        //////        consumer.Root.auron.modules.module_1.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_2.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_3.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_4.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_5.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_6.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_7.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_8.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_9.control.sw_2.color_on,
+        //////       consumer.Root.auron.modules.module_10.control.sw_2.color_on,
+        //////        consumer.Root.auron.modules.module_1.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_2.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_3.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_4.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_5.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_6.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_7.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_8.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_9.control.sw_3.color_on,
+        //////       consumer.Root.auron.modules.module_10.control.sw_3.color_on,
+        //////        consumer.Root.auron.modules.module_1.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_2.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_3.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_4.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_5.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_6.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_7.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_8.control.sw_4.color_on,
+        //////        consumer.Root.auron.modules.module_9.control.sw_4.color_on,
+        //////       consumer.Root.auron.modules.module_10.control.sw_4.color_on,  //  120
+
+        //////        consumer.Root.auron.modules.module_1.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_2.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_3.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_4.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_5.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_6.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_7.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_8.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_9.control.sw_1.color_off,
+        //////       consumer.Root.auron.modules.module_10.control.sw_1.color_off,
+        //////        consumer.Root.auron.modules.module_1.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_2.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_3.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_4.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_5.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_6.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_7.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_8.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_9.control.sw_2.color_off,
+        //////       consumer.Root.auron.modules.module_10.control.sw_2.color_off,
+        //////        consumer.Root.auron.modules.module_1.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_2.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_3.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_4.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_5.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_6.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_7.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_8.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_9.control.sw_3.color_off,
+        //////       consumer.Root.auron.modules.module_10.control.sw_3.color_off,
+        //////        consumer.Root.auron.modules.module_1.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_2.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_3.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_4.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_5.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_6.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_7.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_8.control.sw_4.color_off,
+        //////        consumer.Root.auron.modules.module_9.control.sw_4.color_off,
+        //////       consumer.Root.auron.modules.module_10.control.sw_4.color_off   // 160
+        //////    };
+
+
+        //////    var buttons = new List<Button>
+        //////    {
+        //////        button1, button2, button3, button4, button5,
+        //////        button6, button7, button8, button9, button10,
+        //////        button11, button12, button13, button14, button15,
+        //////        button16, button17, button18, button19, button20,
+        //////        button21, button22, button23, button24, button25,
+        //////        button26, button27, button28, button29, button30,
+        //////        button31, button32, button33, button34, button35,
+        //////        button36, button37, button38, button39, button40
+        //////    };
+
+        //////    var buttonManager = new ButtonManager(this, buttonParams, buttons);
+        //////    buttonManager.InitializeButtons();
+
+        //////    await Task.Delay(Timeout.Infinite);
+        //////    //await consumer.SendAsync();
+        //////}
+
+
+
+        //-------------------------------------------------------------------------------------------------------------------------------------
+
+
         private sealed class MyRoot : DynamicRoot<MyRoot>
         {
         }
-
 
 
         public Consumer<GetSet.AuronRoot> consumer;
@@ -95,218 +327,107 @@ namespace EmberPlusWinForms
             root = consumer.Root;
 
             faderParams = new List<IParameter>
-            {
-                consumer.Root.auron.modules.module_1.path.fader,
-                consumer.Root.auron.modules.module_2.path.fader,
-                consumer.Root.auron.modules.module_3.path.fader,
-                consumer.Root.auron.modules.module_4.path.fader,
-                consumer.Root.auron.modules.module_5.path.fader,
-                consumer.Root.auron.modules.module_6.path.fader,
-                consumer.Root.auron.modules.module_7.path.fader,
-                consumer.Root.auron.modules.module_8.path.fader,
-                consumer.Root.auron.modules.module_9.path.fader,
-                consumer.Root.auron.modules.module_10.path.fader
-            };
+                {
+                    consumer.Root.auron.modules.module_1.path.fader,
+                    consumer.Root.auron.modules.module_2.path.fader,
+                    consumer.Root.auron.modules.module_3.path.fader,
+                    consumer.Root.auron.modules.module_4.path.fader,
+                    consumer.Root.auron.modules.module_5.path.fader,
+                    consumer.Root.auron.modules.module_6.path.fader,
+                    consumer.Root.auron.modules.module_7.path.fader,
+                    consumer.Root.auron.modules.module_8.path.fader,
+                    consumer.Root.auron.modules.module_9.path.fader,
+                    consumer.Root.auron.modules.module_10.path.fader
+                };
 
 
-            var trackBars = new List<TrackBar>
+            var trackBars = new[]
             {
                 trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
                 trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
-            };
+            }.ToList();
+
 
             var faderManager = new FaderManager(this, faderParams, trackBars);
             faderManager.InitializeFaders();
 
+            //-------------------------------------------------------------------------------------------------------------------------------------
 
-
-            List<IParameter> buttonParams = new List<IParameter>
+            // First, gather your modules into an array for easier iteration.
+            var modules = new[]
             {
-                consumer.Root.auron.modules.module_1.control.sw_1.state,
-                consumer.Root.auron.modules.module_2.control.sw_1.state,
-                consumer.Root.auron.modules.module_3.control.sw_1.state,
-                consumer.Root.auron.modules.module_4.control.sw_1.state,
-                consumer.Root.auron.modules.module_5.control.sw_1.state,
-                consumer.Root.auron.modules.module_6.control.sw_1.state,
-                consumer.Root.auron.modules.module_7.control.sw_1.state,
-                consumer.Root.auron.modules.module_8.control.sw_1.state,
-                consumer.Root.auron.modules.module_9.control.sw_1.state,
-                consumer.Root.auron.modules.module_10.control.sw_1.state,
-                consumer.Root.auron.modules.module_1.control.sw_2.state,
-                consumer.Root.auron.modules.module_2.control.sw_2.state,
-                consumer.Root.auron.modules.module_3.control.sw_2.state,
-                consumer.Root.auron.modules.module_4.control.sw_2.state,
-                consumer.Root.auron.modules.module_5.control.sw_2.state,
-                consumer.Root.auron.modules.module_6.control.sw_2.state,
-                consumer.Root.auron.modules.module_7.control.sw_2.state,
-                consumer.Root.auron.modules.module_8.control.sw_2.state,
-                consumer.Root.auron.modules.module_9.control.sw_2.state,
-                consumer.Root.auron.modules.module_10.control.sw_2.state,
-                consumer.Root.auron.modules.module_1.control.sw_3.state,
-                consumer.Root.auron.modules.module_2.control.sw_3.state,
-                consumer.Root.auron.modules.module_3.control.sw_3.state,
-                consumer.Root.auron.modules.module_4.control.sw_3.state,
-                consumer.Root.auron.modules.module_5.control.sw_3.state,
-                consumer.Root.auron.modules.module_6.control.sw_3.state,
-                consumer.Root.auron.modules.module_7.control.sw_3.state,
-                consumer.Root.auron.modules.module_8.control.sw_3.state,
-                consumer.Root.auron.modules.module_9.control.sw_3.state,
-                consumer.Root.auron.modules.module_10.control.sw_3.state,
-                consumer.Root.auron.modules.module_1.control.sw_4.state,
-                consumer.Root.auron.modules.module_2.control.sw_4.state,
-                consumer.Root.auron.modules.module_3.control.sw_4.state,
-                consumer.Root.auron.modules.module_4.control.sw_4.state,
-                consumer.Root.auron.modules.module_5.control.sw_4.state,
-                consumer.Root.auron.modules.module_6.control.sw_4.state,
-                consumer.Root.auron.modules.module_7.control.sw_4.state,
-                consumer.Root.auron.modules.module_8.control.sw_4.state,
-                consumer.Root.auron.modules.module_9.control.sw_4.state,
-                consumer.Root.auron.modules.module_10.control.sw_4.state,   // 40
-
-                consumer.Root.auron.modules.module_1.control.sw_1.mode,
-                consumer.Root.auron.modules.module_2.control.sw_1.mode,
-                consumer.Root.auron.modules.module_3.control.sw_1.mode,
-                consumer.Root.auron.modules.module_4.control.sw_1.mode,
-                consumer.Root.auron.modules.module_5.control.sw_1.mode,
-                consumer.Root.auron.modules.module_6.control.sw_1.mode,
-                consumer.Root.auron.modules.module_7.control.sw_1.mode,
-                consumer.Root.auron.modules.module_8.control.sw_1.mode,
-                consumer.Root.auron.modules.module_9.control.sw_1.mode,
-                consumer.Root.auron.modules.module_10.control.sw_1.mode,
-                consumer.Root.auron.modules.module_1.control.sw_2.mode,
-                consumer.Root.auron.modules.module_2.control.sw_2.mode,
-                consumer.Root.auron.modules.module_3.control.sw_2.mode,
-                consumer.Root.auron.modules.module_4.control.sw_2.mode,
-                consumer.Root.auron.modules.module_5.control.sw_2.mode,
-                consumer.Root.auron.modules.module_6.control.sw_2.mode,
-                consumer.Root.auron.modules.module_7.control.sw_2.mode,
-                consumer.Root.auron.modules.module_8.control.sw_2.mode,
-                consumer.Root.auron.modules.module_9.control.sw_2.mode,
-                consumer.Root.auron.modules.module_10.control.sw_2.mode,
-                consumer.Root.auron.modules.module_1.control.sw_3.mode,
-                consumer.Root.auron.modules.module_2.control.sw_3.mode,
-                consumer.Root.auron.modules.module_3.control.sw_3.mode,
-                consumer.Root.auron.modules.module_4.control.sw_3.mode,
-                consumer.Root.auron.modules.module_5.control.sw_3.mode,
-                consumer.Root.auron.modules.module_6.control.sw_3.mode,
-                consumer.Root.auron.modules.module_7.control.sw_3.mode,
-                consumer.Root.auron.modules.module_8.control.sw_3.mode,
-                consumer.Root.auron.modules.module_9.control.sw_3.mode,
-                consumer.Root.auron.modules.module_10.control.sw_3.mode,
-                consumer.Root.auron.modules.module_1.control.sw_4.mode,
-                consumer.Root.auron.modules.module_2.control.sw_4.mode,
-                consumer.Root.auron.modules.module_3.control.sw_4.mode,
-                consumer.Root.auron.modules.module_4.control.sw_4.mode,
-                consumer.Root.auron.modules.module_5.control.sw_4.mode,
-                consumer.Root.auron.modules.module_6.control.sw_4.mode,
-                consumer.Root.auron.modules.module_7.control.sw_4.mode,
-                consumer.Root.auron.modules.module_8.control.sw_4.mode,
-                consumer.Root.auron.modules.module_9.control.sw_4.mode,
-                consumer.Root.auron.modules.module_10.control.sw_4.mode,    // 80
-
-                consumer.Root.auron.modules.module_1.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_2.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_3.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_4.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_5.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_6.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_7.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_8.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_9.control.sw_1.color_on,
-               consumer.Root.auron.modules.module_10.control.sw_1.color_on,
-                consumer.Root.auron.modules.module_1.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_2.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_3.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_4.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_5.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_6.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_7.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_8.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_9.control.sw_2.color_on,
-               consumer.Root.auron.modules.module_10.control.sw_2.color_on,
-                consumer.Root.auron.modules.module_1.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_2.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_3.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_4.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_5.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_6.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_7.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_8.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_9.control.sw_3.color_on,
-               consumer.Root.auron.modules.module_10.control.sw_3.color_on,
-                consumer.Root.auron.modules.module_1.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_2.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_3.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_4.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_5.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_6.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_7.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_8.control.sw_4.color_on,
-                consumer.Root.auron.modules.module_9.control.sw_4.color_on,
-               consumer.Root.auron.modules.module_10.control.sw_4.color_on,  //  120
-
-                consumer.Root.auron.modules.module_1.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_2.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_3.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_4.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_5.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_6.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_7.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_8.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_9.control.sw_1.color_off,
-               consumer.Root.auron.modules.module_10.control.sw_1.color_off,
-                consumer.Root.auron.modules.module_1.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_2.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_3.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_4.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_5.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_6.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_7.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_8.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_9.control.sw_2.color_off,
-               consumer.Root.auron.modules.module_10.control.sw_2.color_off,
-                consumer.Root.auron.modules.module_1.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_2.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_3.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_4.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_5.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_6.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_7.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_8.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_9.control.sw_3.color_off,
-               consumer.Root.auron.modules.module_10.control.sw_3.color_off,
-                consumer.Root.auron.modules.module_1.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_2.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_3.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_4.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_5.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_6.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_7.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_8.control.sw_4.color_off,
-                consumer.Root.auron.modules.module_9.control.sw_4.color_off,
-               consumer.Root.auron.modules.module_10.control.sw_4.color_off   // 160
+                consumer.Root.auron.modules.module_1,
+                consumer.Root.auron.modules.module_2,
+                consumer.Root.auron.modules.module_3,
+                consumer.Root.auron.modules.module_4,
+                consumer.Root.auron.modules.module_5,
+                consumer.Root.auron.modules.module_6,
+                consumer.Root.auron.modules.module_7,
+                consumer.Root.auron.modules.module_8,
+                consumer.Root.auron.modules.module_9,
+                consumer.Root.auron.modules.module_10
             };
 
+            List<IParameter> buttonParams = new List<IParameter>();
 
-            var buttons = new List<Button>
+            // Group 1: Add states for sw_1 through sw_4
+            for (int i = 0; i < modules.Length; i++)
             {
-                button1, button2, button3, button4, button5,
-                button6, button7, button8, button9, button10,
-                button11, button12, button13, button14, button15,
-                button16, button17, button18, button19, button20,
-                button21, button22, button23, button24, button25,
-                button26, button27, button28, button29, button30,
-                button31, button32, button33, button34, button35,
-                button36, button37, button38, button39, button40
-            };
+                buttonParams.Add(modules[i].control.sw_1.state);
+                buttonParams.Add(modules[i].control.sw_2.state);
+                buttonParams.Add(modules[i].control.sw_3.state);
+                buttonParams.Add(modules[i].control.sw_4.state);
+            }
+
+            // Group 2: Add modes for sw_1 through sw_4
+            for (int i = 0; i < modules.Length; i++)
+            {
+                buttonParams.Add(modules[i].control.sw_1.mode);
+                buttonParams.Add(modules[i].control.sw_2.mode);
+                buttonParams.Add(modules[i].control.sw_3.mode);
+                buttonParams.Add(modules[i].control.sw_4.mode);
+            }
+
+            // Group 3: Add color_on for sw_1 through sw_4
+            for (int i = 0; i < modules.Length; i++)
+            {
+                buttonParams.Add(modules[i].control.sw_1.color_on);
+                buttonParams.Add(modules[i].control.sw_2.color_on);
+                buttonParams.Add(modules[i].control.sw_3.color_on);
+                buttonParams.Add(modules[i].control.sw_4.color_on);
+            }
+
+            // Group 4: Add color_off for sw_1 through sw_4
+            for (int i = 0; i < modules.Length; i++)
+            {
+                buttonParams.Add(modules[i].control.sw_1.color_off);
+                buttonParams.Add(modules[i].control.sw_2.color_off);
+                buttonParams.Add(modules[i].control.sw_3.color_off);
+                buttonParams.Add(modules[i].control.sw_4.color_off);
+            }
+
+
+
+
+            //-------------------------------------------------------------------------------------------------------------------------------------
+
+            var buttons = new List<Button>();
+
+            for (int i = 1; i <= 40; i++)
+            {
+                var button = (Button)Controls["button" + i];
+                    buttons.Add(button);
+            }
+
 
             var buttonManager = new ButtonManager(this, buttonParams, buttons);
             buttonManager.InitializeButtons();
 
             await Task.Delay(Timeout.Infinite);
-            //await consumer.SendAsync();
+
         }
 
+//-------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -315,7 +436,12 @@ namespace EmberPlusWinForms
 
 
 
-        private bool isOn = true;
+
+
+
+
+
+private bool isOn = true;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -334,40 +460,43 @@ namespace EmberPlusWinForms
         private List<Button> buttons;
         private object lstdata;
 
-        //private static object faderParams;
+
+
+
+
+        // Moving all the 10 ffaders
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tellertje = tellertje + 20;
-            trackBar1.Value = tellertje;
-            // var formInstance = Application.OpenForms["Form1"] as Form1; // Get the Form1 instance
-            if (faderParams != null)
-            {
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar1, faderParams[0], 0);
-                trackBar1.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[1], 1);
-                trackBar2.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[2], 2);
-                trackBar3.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar1, faderParams[3], 3);
-                trackBar4.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[4], 4);
-                trackBar5.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[5], 5);
-                trackBar6.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[6], 6);
-                trackBar7.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar1, faderParams[7], 7);
-                trackBar8.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[8], 8);
-                trackBar9.Value = tellertje;
-                _ = faderManager.SyncTrackBarToEmberAsync(trackBar2, faderParams[9], 9);
-                trackBar10.Value = tellertje;
+            // Increment the counter and wrap it around.
+            tellertje = (tellertje + 1) % 1001;
 
+            // Create an array of TrackBars for easy iteration.
+            TrackBar[] trackBars = new TrackBar[]
+            {
+                trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
+                trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
+            };
+
+            // Update each trackBar's value only if it's different.
+            for (int i = 0; i < trackBars.Length; i++)
+            {
+                if (trackBars[i].Value != tellertje)
+                {
+                    trackBars[i].Value = tellertje;
+                }
+
+                if (faderParams != null && i < faderParams.Count)
+                {
+                    _ = faderManager.SyncTrackBarToEmberAsync(trackBars[i], faderParams[i], i);
+                }
             }
-            if (tellertje > 1000)
-                tellertje = 0;
         }
+
+
+
+
+
 
         private void Form1_Shown(object sender, EventArgs e)
         {
