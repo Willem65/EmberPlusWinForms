@@ -10,13 +10,12 @@ namespace EmberPlusWinForms
     {
         bool checkboxEnabled = false;
         public bool checkboxloggingEnabled;
-
         int buttonNR = 1;
         private FaderManager faderManager;
         private ButtonManager buttonManager;
         public static Form1? instanse;
 
-        public Form1()
+        public Form1()   // constructor
         {
             InitializeComponent();
             instanse = this;
@@ -27,29 +26,16 @@ namespace EmberPlusWinForms
         {
             timer1.Stop();
             Task startEmberPlusListenerAsync = StartEmberPlusListenerAsync();
-            ToggleAllControls(this, false);
-            Thread.Sleep(2000);
-            ToggleAllControls(this, true);
             faderManager = new FaderManager( faderParams, trackBars);
             buttonManager = new ButtonManager( faderParams, buttons);
-        }
-
-        private void ToggleAllControls(Control parent, bool isEnabled)
-        {
-            foreach (Control control in parent.Controls)
-            {
-                control.Enabled = isEnabled;
-                if (control.HasChildren)                    // Check if the control contains child controls
-                    ToggleAllControls(control, isEnabled);  // Recursively disable/enable child controls
-            }
         }
 
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
+            await tcpClient.ConnectAsync(host, port); // Ensure this is awaited
             var stream = tcpClient.GetStream();
-            Thread.Sleep(300);
+            await Task.Delay(300); // Optional delay if needed
             return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
         }
 
@@ -68,6 +54,16 @@ namespace EmberPlusWinForms
         {
             using var client = await ConnectAsync("192.168.1.2", 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+            {
+                var connectionLost = new TaskCompletionSource<Exception>();
+                consumer.ConnectionLost += (s, e) => connectionLost.SetResult(e.Exception);
+                await Task.Delay(500); // Optional delay if needed
+                Form1.instanse.listBox1.Items.Add($" Connection Lost! ");
+                Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+            }
+
+
+
             root = consumer.Root;
 
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------

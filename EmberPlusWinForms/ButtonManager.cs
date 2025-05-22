@@ -82,6 +82,7 @@ namespace EmberPlusWinForms
                     {
                         button.BackColor = DetermineBackColor((bool)parameter.Value, index);
                     }
+
                     if (Form1.instanse.checkboxloggingEnabled)
                     {
                         Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");

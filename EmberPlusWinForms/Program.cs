@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace EmberPlusWinForms
 {
     internal static class Program
@@ -10,6 +12,12 @@ namespace EmberPlusWinForms
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Set its priority class to High
+            currentProcess.PriorityClass = ProcessPriorityClass.High;
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }

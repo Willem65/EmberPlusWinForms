@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EmberPlusWinForms")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b9f5a2ceb355043c1b2521b2d2496d3811c3b66")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65dc5e555ca8e400328259b0a2681435b9073328")]
 [assembly: System.Reflection.AssemblyProductAttribute("EmberPlusWinForms")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EmberPlusWinForms")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -15,6 +15,8 @@ namespace EmberPlusWinForms
             _trackBars = trackBars;            
         }
 
+ //------------------------------------------------------------------------------------------------------------
+
         public void InitializeFaders()
         {           
             for (int i = 0; i < _faderParams.Count; i++)
@@ -24,8 +26,7 @@ namespace EmberPlusWinForms
                 var trackBar = _trackBars[index];
                 trackBar.Value = (int)(long)_faderParams[index].Value;
 
-                // Handle incoming data (Ember+ to UI)
-                faderParam.PropertyChanged += (sender, args) =>
+                faderParam.PropertyChanged += (sender, args) =>        // Handle receiving data (Ember+ update UI)
                 {
                     long updatedValue = (long)((IParameter)sender).Value;
                     int clampedValue = Math.Min(Math.Max((int)updatedValue, trackBar.Minimum), trackBar.Maximum);
@@ -38,19 +39,16 @@ namespace EmberPlusWinForms
                     };
                 };
                 
-                // Handle outgoing data (UI to Ember+)
-                trackBar.Scroll += async (s, e) =>
+                trackBar.Scroll += async (s, e) =>                // Handle sending outgoing data (Button click sends value to Ember+)
                 {
                     await SyncTrackBarToEmberAsync(trackBar, faderParam, index);
                 };
             }
         }
-
-        // Om een waarde voor de trackbar scroll te verzenden
-        public async Task SyncTrackBarToEmberAsync(TrackBar tb, IParameter param, int index)
+       
+        public async Task SyncTrackBarToEmberAsync(TrackBar tb, IParameter param, int index)     // Om een waarde voor de trackbar scroll te verzenden
         {
             param.Value = (long)tb.Value;
-            //await Task.Delay(10); // Simulating async operation
             if (Form1.instanse.checkboxloggingEnabled)
             {
                 Form1.instanse.listBox1.Items.Add("OUT ----> " + tb.Value.ToString());
