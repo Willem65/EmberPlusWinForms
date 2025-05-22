@@ -90,7 +90,7 @@ namespace EmberPlusWinForms
 
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync("localhost", 9000);
+            using var client = await ConnectAsync("192.168.0.111", 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             root = consumer.Root;
 
