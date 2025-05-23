@@ -52,7 +52,7 @@ namespace EmberPlusWinForms
 
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync("192.168.1.2", 9000);
+            using var client = await ConnectAsync("192.168.0.101", 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             {
                 var connectionLost = new TaskCompletionSource<Exception>();
@@ -108,10 +108,16 @@ namespace EmberPlusWinForms
                 consumer.Root.auron.modules.module_10
             };
 
+
+
+
             List<IParameter> buttonParams = new List<IParameter>();
 
+            //int aantalMoules = modules.Length;
+            int aantalMoules = 1;
+
             // Group 1: Add states for sw_1 through sw_4
-            for (int i = 0; i < modules.Length; i++)
+            for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.state);
                 buttonParams.Add(modules[i].control.sw_2.state);
@@ -120,7 +126,7 @@ namespace EmberPlusWinForms
             }
 
             // Group 2: Add modes for sw_1 through sw_4
-            for (int i = 0; i < modules.Length; i++)
+            for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.mode);
                 buttonParams.Add(modules[i].control.sw_2.mode);
@@ -129,7 +135,7 @@ namespace EmberPlusWinForms
             }
 
             // Group 3: Add color_on for sw_1 through sw_4
-            for (int i = 0; i < modules.Length; i++)
+            for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.color_on);
                 buttonParams.Add(modules[i].control.sw_2.color_on);
@@ -138,7 +144,7 @@ namespace EmberPlusWinForms
             }
 
             // Group 4: Add color_off for sw_1 through sw_4
-            for (int i = 0; i < modules.Length; i++)
+            for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.color_off);
                 buttonParams.Add(modules[i].control.sw_2.color_off);
