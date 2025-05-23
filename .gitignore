@@ -1,46 +1,120 @@
-# Compiled binary files (keep projects clean)
-*.dll
-*.exe
-*.so
-*.dylib
-*.pdb
-*.csproj
-*.json
 
-# Visual Studio Code workspace settings
-#.vscode/
+#####################################################################
+# Visual Studio / C# Project .gitignore
+#
+# This template ignores user-specific files and directories generated
+# by Visual Studio and .NET Core. It’s compiled from the official
+# Microsoft templates and popular community gists.
+#####################################################################
 
-# Build output (should not be committed)
-# bin/
-# obj/
-
-# Dependencies (NuGet packages can be restored)
-# packages/
-# *.nuget/
-
-# User-specific and IDE configuration files (not needed in Git)
-*.user
+# User-specific files
 *.suo
-*.sln.cache
-*.sln.ide
+*.user
+*.userosscache
+*.sln.docstates
 
-# Temporary files (generated during development)
+# Build results and intermediate files
+[Bb]in/
+[Oo]bj/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+bld/
+[Bb]uild[Ll]og.*
+
+# Visual Studio directories
+.vs/
+.vscode/
+
+# Dotnet Core generated files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet packages
+*.nupkg
+**/packages/*
+!**/packages/build/  # Retain build targets if needed
+
+# Test results (commonly auto-generated folders)
+[Tt]est[Rr]esult*/
+[TestData]/
+
+# Log files
 *.log
-*.tmp
-*.bak
+
+# Temporary/backup files
+*~
 *.swp
 
-# Resharper files (specific to JetBrains tools)
-_ReSharper*/
-*.DotSettings.user
+# Code analysis & profiling files
+*.coverage
+*.coveragexml
+*.dotCover
+*.ncrunch*
+.*crunch*.local.xml
 
-# Rider IDE files
+# IDE-specific folders for extensions
+# ReSharper
+_ReSharper*/
+*.ReSharper
+
+# Rider
 .idea/
 
-# Visual Studio-related cache and index files
-.vs/
+# OS generated files
+.DS_Store
+Thumbs.db
 
-Ensure UI-related files are **tracked** in Git (DO NOT ignore)
-!*.Designer.cs  <- Removing this so UI files are included
-!*.resx
-!*.xaml
+# Optional: if using automated publishing/deployment, you might ignore these folders
+# publish/
+
+
+
+# # # # Compiled binary files (keep projects clean)
+# # # *.dll
+# # # *.exe
+# # # *.so
+# # # *.dylib
+# # # *.pdb
+# # # *.csproj
+# # # *.json
+
+# # # # Visual Studio Code workspace settings
+# # # #.vscode/
+
+# # # # Build output (should not be committed)
+# # # # bin/
+# # # # obj/
+
+# # # # Dependencies (NuGet packages can be restored)
+# # # # packages/
+# # # # *.nuget/
+
+# # # # User-specific and IDE configuration files (not needed in Git)
+# # # *.user
+# # # *.suo
+# # # *.sln.cache
+# # # *.sln.ide
+
+# # # # Temporary files (generated during development)
+# # # *.log
+# # # *.tmp
+# # # *.bak
+# # # *.swp
+
+# # # # Resharper files (specific to JetBrains tools)
+# # # _ReSharper*/
+# # # *.DotSettings.user
+
+# # # # Rider IDE files
+# # # .idea/
+
+# # # # Visual Studio-related cache and index files
+# # # .vs/
+
+# # # Ensure UI-related files are **tracked** in Git (DO NOT ignore)
+# # # !*.Designer.cs  <- Removing this so UI files are included
+# # # !*.resx
+# # # !*.xaml

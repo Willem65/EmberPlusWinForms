@@ -52,7 +52,7 @@ namespace EmberPlusWinForms
 
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync("192.168.0.101", 9000);
+            using var client = await ConnectAsync("192.168.1.2", 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             {
                 var connectionLost = new TaskCompletionSource<Exception>();
@@ -113,8 +113,8 @@ namespace EmberPlusWinForms
 
             List<IParameter> buttonParams = new List<IParameter>();
 
-            //int aantalMoules = modules.Length;
-            int aantalMoules = 1;
+            int aantalMoules = modules.Length;
+            //int aantalMoules = 1;
 
             // Group 1: Add states for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)

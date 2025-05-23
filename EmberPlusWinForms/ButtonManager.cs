@@ -44,7 +44,7 @@ namespace EmberPlusWinForms
 
             timer2.Tick += timer2_Tick;
 
-            for (int i = 0; i < 4; i++)   // 40
+            for (int i = 0; i < 40; i++)   // 40
             {
                 int index = i;
                 var button = _buttons[i];
@@ -107,14 +107,13 @@ namespace EmberPlusWinForms
                 offset = 120;  // De off_color vanaf 120
 
             return Convert.ToInt32(_parameters[index + offset].Value) switch
-                {
-                    0 => Color.Transparent,
-                    1 => Color.Red,
-                    2 => Color.Green,
-                    3 => Color.Yellow,
-                    _ => Color.Transparent
-                };
-
+            {
+                0 => Color.Transparent,
+                1 => Color.Red,
+                2 => Color.Green,
+                3 => Color.Yellow,
+                _ => Color.Transparent
+            };
         }
 
         private async Task SyncButtonToEmberAsync(Button button, IParameter parameter)

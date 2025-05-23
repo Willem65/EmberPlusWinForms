@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "SOrSTvi307A=",
+  "dgSpecHash": "xy7FwWQiFks=",
   "success": true,
-  "projectFilePath": "C:\\Users\\W.post\\source\\repos\\Willem65\\EmberPlusWinForms\\EmberPlusWinForms\\EmberPlusWinForms.csproj",
+  "projectFilePath": "C:\\temp26-Emberpluscsharp-WindowsForms\\EmberPlusWinForms\\EmberPlusWinForms\\EmberPlusWinForms.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\W.post\\.nuget\\packages\\system.collections.immutable\\9.0.5\\system.collections.immutable.9.0.5.nupkg.sha512",
-    "C:\\Users\\W.post\\.nuget\\packages\\system.reflection.metadata\\9.0.5\\system.reflection.metadata.9.0.5.nupkg.sha512"
+    "C:\\Users\\Willem\\.nuget\\packages\\system.collections.immutable\\9.0.5\\system.collections.immutable.9.0.5.nupkg.sha512",
+    "C:\\Users\\Willem\\.nuget\\packages\\system.reflection.metadata\\9.0.5\\system.reflection.metadata.9.0.5.nupkg.sha512"
   ],
   "logs": []
 }
