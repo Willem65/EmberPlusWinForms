@@ -65,8 +65,9 @@ namespace EmberPlusWinForms
                     timer2.Start();
                 }
 
-                parameter.PropertyChanged += (sender, args) =>   // Handle receiving data (Ember+ update UI)
+                parameter.PropertyChanged += async  (sender, args) =>   // Handle receiving data (Ember+ update UI)
                 {
+                    await Task.Delay(20); // Simulating async work
                     var param = sender as IParameter;
                     button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
 
@@ -92,6 +93,20 @@ namespace EmberPlusWinForms
 
                 button.Click += async (s, e) =>            // Handle sending outgoing data (Button click sends value to Ember+)
                 {
+                    try
+                    {
+                        button.Enabled = false; // Prevent multiple clicks
+                        await Task.Delay(10); // Simulating async work
+                        //MessageBox.Show("Button clicked!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                    finally
+                    {
+                        button.Enabled = true; // Re-enable button
+                    }
                     await SyncButtonToEmberAsync(button, parameter);
                 };
             }

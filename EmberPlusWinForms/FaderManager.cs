@@ -26,8 +26,9 @@ namespace EmberPlusWinForms
                 var trackBar = _trackBars[index];
                 trackBar.Value = (int)(long)_faderParams[index].Value;
 
-                faderParam.PropertyChanged += (sender, args) =>        // Handle receiving data (Ember+ update UI)
+                faderParam.PropertyChanged += async (sender, args) =>        // Handle receiving data (Ember+ update UI)
                 {
+                    await Task.Delay(20); // Simulating async work
                     long updatedValue = (long)((IParameter)sender).Value;
                     int clampedValue = Math.Min(Math.Max((int)updatedValue, trackBar.Minimum), trackBar.Maximum);
                     if (trackBar.Value != clampedValue)
