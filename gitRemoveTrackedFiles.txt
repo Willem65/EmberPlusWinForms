@@ -1,0 +1,2 @@
+git rm -r --cached EmberPlusWinForms/obj/
+git commit -m "Remove tracked build artifacts from obj directory"
