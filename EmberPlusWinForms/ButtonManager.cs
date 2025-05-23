@@ -71,30 +71,30 @@ namespace EmberPlusWinForms
                     timer2.Start();
                 }
 
-                parameter.PropertyChanged += (sender, args) =>
-                {
-                    var param = sender as IParameter;
-                    //int t = param.Path[2];
-                    //int u = param.Path[4];
-                    //button.Text = t.ToString() + "_" + u.ToString();
+                //parameter.PropertyChanged += (sender, args) =>
+                //{
+                //    var param = sender as IParameter;
+                //    //int t = param.Path[2];
+                //    //int u = param.Path[4];
+                //    //button.Text = t.ToString() + "_" + u.ToString();
 
-                    button.BackColor = DetermineBackColor((bool)param.Value, index);
+                //    button.BackColor = DetermineBackColor((bool)param.Value, index);
 
-                    int mode = Convert.ToInt32(_parameters[index + 40].Value);
+                //    int mode = Convert.ToInt32(_parameters[index + 40].Value);
 
-                    if (mode > 0)
-                    {
-                        blinkingButtons.Add(button);
-                        timer2.Start();
-                    }
-                    else
-                    {
-                        button.BackColor = DetermineBackColor((bool)parameter.Value, index);
-                    }
+                //    if (mode > 0)
+                //    {
+                //        blinkingButtons.Add(button);
+                //        timer2.Start();
+                //    }
+                //    else
+                //    {
+                //        button.BackColor = DetermineBackColor((bool)parameter.Value, index);
+                //    }
 
-                    Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");
-                    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-                };
+                //    Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");
+                //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+                //};
 
                 button.Click += async (s, e) =>
                 {
