@@ -1,322 +1,50 @@
-﻿using Lawo.ComponentModel;
-using Lawo.EmberPlusSharp.Ember;
-using Lawo.EmberPlusSharp.Model;
+﻿using Lawo.EmberPlusSharp.Model;
 using Lawo.EmberPlusSharp.S101;
-using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using static EmberPlusWinForms.FaderManager;
 using TrackBar = System.Windows.Forms.TrackBar;
 using Button = System.Windows.Forms.Button;
-using System.Windows.Forms;
-using static System.Windows.Forms.DataFormats;
-using System.Diagnostics;
 
 namespace EmberPlusWinForms
 {
     public partial class Form1 : Form
     {
         bool checkboxEnabled = false;
-        // Change the accessibility of the 'checkboxloggingEnabled' field to 'public' to fix the CS0122 error.
         public bool checkboxloggingEnabled;
-
         int buttonNR = 1;
         private FaderManager faderManager;
         private ButtonManager buttonManager;
-        public static Form1 instanse;
+        public static Form1? instanse;
 
-
-
-        public Form1()
+        public Form1()   // constructor
         {
             InitializeComponent();
             instanse = this;
             checkBox1.CheckedChanged += CheckBox1_CheckedChanged;
         }
 
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Stop();
             Task startEmberPlusListenerAsync = StartEmberPlusListenerAsync();
-            ToggleAllControls(this, false);
-            Thread.Sleep(2000);
-            ToggleAllControls(this, true);
-            // faderManager = new FaderManager(consumer);
-            faderManager = new FaderManager(this, faderParams, trackBars);
-            buttonManager = new ButtonManager(this, faderParams, buttons);
+            faderManager = new FaderManager( faderParams, trackBars);
+            buttonManager = new ButtonManager( faderParams, buttons);
         }
-
-
-        private void ToggleAllControls(Control parent, bool isEnabled)
-        {
-            foreach (Control control in parent.Controls)
-            {
-                control.Enabled = isEnabled;
-                if (control.HasChildren) // Check if the control contains child controls
-                    ToggleAllControls(control, isEnabled); // Recursively disable/enable child controls
-            }
-
-        }
-
-
 
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
+            await tcpClient.ConnectAsync(host, port); // Ensure this is awaited
             var stream = tcpClient.GetStream();
-            Thread.Sleep(300);
-
+            await Task.Delay(300); // Optional delay if needed
             return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
         }
 
-
-
-
-
-        //-------------------------------------------------------------------------------------------------------------------------------------
-
-        //////private sealed class MyRoot : DynamicRoot<MyRoot>
-        //////{
-        //////}
-
-
-        //////public Consumer<GetSet.AuronRoot> consumer;
-        //////private List<IParameter> faderParams;
-        //////private INode root;
-
-        //////private async Task StartEmberPlusListenerAsync()
-        //////{
-        //////    using var client = await ConnectAsync("localhost", 9000);
-        //////    consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
-        //////    root = consumer.Root;
-
-        //////    faderParams = new List<IParameter>
-        //////    {
-        //////        consumer.Root.auron.modules.module_1.path.fader,
-        //////        consumer.Root.auron.modules.module_2.path.fader,
-        //////        consumer.Root.auron.modules.module_3.path.fader,
-        //////        consumer.Root.auron.modules.module_4.path.fader,
-        //////        consumer.Root.auron.modules.module_5.path.fader,
-        //////        consumer.Root.auron.modules.module_6.path.fader,
-        //////        consumer.Root.auron.modules.module_7.path.fader,
-        //////        consumer.Root.auron.modules.module_8.path.fader,
-        //////        consumer.Root.auron.modules.module_9.path.fader,
-        //////        consumer.Root.auron.modules.module_10.path.fader
-        //////    };
-
-
-        //////    var trackBars = new List<TrackBar>
-        //////    {
-        //////        trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
-        //////        trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
-        //////    };
-
-        //////    var faderManager = new FaderManager(this, faderParams, trackBars);
-        //////    faderManager.InitializeFaders();
-
-
-
-
-
-        //////    List<IParameter> buttonParams = new List<IParameter>
-        //////    {
-        //////        consumer.Root.auron.modules.module_1.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_2.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_3.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_4.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_5.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_6.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_7.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_8.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_9.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_10.control.sw_1.state,
-        //////        consumer.Root.auron.modules.module_1.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_2.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_3.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_4.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_5.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_6.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_7.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_8.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_9.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_10.control.sw_2.state,
-        //////        consumer.Root.auron.modules.module_1.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_2.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_3.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_4.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_5.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_6.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_7.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_8.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_9.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_10.control.sw_3.state,
-        //////        consumer.Root.auron.modules.module_1.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_2.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_3.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_4.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_5.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_6.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_7.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_8.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_9.control.sw_4.state,
-        //////        consumer.Root.auron.modules.module_10.control.sw_4.state,   // 40
-
-        //////        consumer.Root.auron.modules.module_1.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_2.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_3.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_4.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_5.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_6.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_7.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_8.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_9.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_10.control.sw_1.mode,
-        //////        consumer.Root.auron.modules.module_1.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_2.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_3.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_4.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_5.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_6.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_7.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_8.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_9.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_10.control.sw_2.mode,
-        //////        consumer.Root.auron.modules.module_1.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_2.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_3.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_4.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_5.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_6.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_7.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_8.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_9.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_10.control.sw_3.mode,
-        //////        consumer.Root.auron.modules.module_1.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_2.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_3.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_4.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_5.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_6.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_7.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_8.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_9.control.sw_4.mode,
-        //////        consumer.Root.auron.modules.module_10.control.sw_4.mode,    // 80
-
-        //////        consumer.Root.auron.modules.module_1.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_2.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_3.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_4.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_5.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_6.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_7.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_8.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_9.control.sw_1.color_on,
-        //////       consumer.Root.auron.modules.module_10.control.sw_1.color_on,
-        //////        consumer.Root.auron.modules.module_1.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_2.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_3.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_4.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_5.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_6.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_7.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_8.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_9.control.sw_2.color_on,
-        //////       consumer.Root.auron.modules.module_10.control.sw_2.color_on,
-        //////        consumer.Root.auron.modules.module_1.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_2.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_3.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_4.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_5.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_6.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_7.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_8.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_9.control.sw_3.color_on,
-        //////       consumer.Root.auron.modules.module_10.control.sw_3.color_on,
-        //////        consumer.Root.auron.modules.module_1.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_2.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_3.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_4.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_5.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_6.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_7.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_8.control.sw_4.color_on,
-        //////        consumer.Root.auron.modules.module_9.control.sw_4.color_on,
-        //////       consumer.Root.auron.modules.module_10.control.sw_4.color_on,  //  120
-
-        //////        consumer.Root.auron.modules.module_1.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_2.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_3.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_4.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_5.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_6.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_7.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_8.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_9.control.sw_1.color_off,
-        //////       consumer.Root.auron.modules.module_10.control.sw_1.color_off,
-        //////        consumer.Root.auron.modules.module_1.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_2.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_3.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_4.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_5.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_6.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_7.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_8.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_9.control.sw_2.color_off,
-        //////       consumer.Root.auron.modules.module_10.control.sw_2.color_off,
-        //////        consumer.Root.auron.modules.module_1.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_2.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_3.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_4.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_5.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_6.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_7.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_8.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_9.control.sw_3.color_off,
-        //////       consumer.Root.auron.modules.module_10.control.sw_3.color_off,
-        //////        consumer.Root.auron.modules.module_1.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_2.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_3.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_4.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_5.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_6.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_7.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_8.control.sw_4.color_off,
-        //////        consumer.Root.auron.modules.module_9.control.sw_4.color_off,
-        //////       consumer.Root.auron.modules.module_10.control.sw_4.color_off   // 160
-        //////    };
-
-
-        //////    var buttons = new List<Button>
-        //////    {
-        //////        button1, button2, button3, button4, button5,
-        //////        button6, button7, button8, button9, button10,
-        //////        button11, button12, button13, button14, button15,
-        //////        button16, button17, button18, button19, button20,
-        //////        button21, button22, button23, button24, button25,
-        //////        button26, button27, button28, button29, button30,
-        //////        button31, button32, button33, button34, button35,
-        //////        button36, button37, button38, button39, button40
-        //////    };
-
-        //////    var buttonManager = new ButtonManager(this, buttonParams, buttons);
-        //////    buttonManager.InitializeButtons();
-
-        //////    await Task.Delay(Timeout.Infinite);
-        //////    //await consumer.SendAsync();
-        //////}
-
-
-
-        //-------------------------------------------------------------------------------------------------------------------------------------
+        //-------------- Start -----------------------------------------------------------------------------------------------------------------------
 
 
         private sealed class MyRoot : DynamicRoot<MyRoot>
         {
         }
-
 
         public Consumer<GetSet.AuronRoot> consumer;
         private List<IParameter> faderParams;
@@ -324,38 +52,48 @@ namespace EmberPlusWinForms
 
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync("192.168.0.111", 9000);
+            using var client = await ConnectAsync("192.168.1.2", 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+            {
+                var connectionLost = new TaskCompletionSource<Exception>();
+                consumer.ConnectionLost += (s, e) => connectionLost.SetResult(e.Exception);
+                await Task.Delay(500); // Optional delay if needed
+                Form1.instanse.listBox1.Items.Add($" Connection Lost! ");
+                Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+            }
+
             root = consumer.Root;
 
+            //------------- Faders ------------------------------------------------------------------------------------------------------------------------
+            // First, gather your modules into an array for easier iteration.
+            //
             faderParams = new List<IParameter>
-                {
-                    consumer.Root.auron.modules.module_1.path.fader,
-                    consumer.Root.auron.modules.module_2.path.fader,
-                    consumer.Root.auron.modules.module_3.path.fader,
-                    consumer.Root.auron.modules.module_4.path.fader,
-                    consumer.Root.auron.modules.module_5.path.fader,
-                    consumer.Root.auron.modules.module_6.path.fader,
-                    consumer.Root.auron.modules.module_7.path.fader,
-                    consumer.Root.auron.modules.module_8.path.fader,
-                    consumer.Root.auron.modules.module_9.path.fader,
-                    consumer.Root.auron.modules.module_10.path.fader
-                };
-
-
-            var trackBars = new[]
             {
-                trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
-                trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
-            }.ToList();
+                consumer.Root.auron.modules.module_1.path.fader,
+                consumer.Root.auron.modules.module_2.path.fader,
+                consumer.Root.auron.modules.module_3.path.fader,
+                consumer.Root.auron.modules.module_4.path.fader,
+                consumer.Root.auron.modules.module_5.path.fader,
+                consumer.Root.auron.modules.module_6.path.fader,
+                consumer.Root.auron.modules.module_7.path.fader,
+                consumer.Root.auron.modules.module_8.path.fader,
+                consumer.Root.auron.modules.module_9.path.fader,
+                consumer.Root.auron.modules.module_10.path.fader
+            };
 
+            var trackBars = new List<TrackBar>();
+            for (int i = 1; i <= 10; i++)
+            {
+                var trackBar = (TrackBar)Controls["trackBar" + i];
+                trackBars.Add(trackBar);
+            }                     
 
-            var faderManager = new FaderManager(this, faderParams, trackBars);
+            var faderManager = new FaderManager( faderParams, trackBars);
             faderManager.InitializeFaders();
 
-            //-------------------------------------------------------------------------------------------------------------------------------------
-
+            //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
             // First, gather your modules into an array for easier iteration.
+            // 
             var modules = new[]
             {
                 consumer.Root.auron.modules.module_1,
@@ -408,54 +146,28 @@ namespace EmberPlusWinForms
                 buttonParams.Add(modules[i].control.sw_4.color_off);
             }
 
-
-
-
-            //-------------------------------------------------------------------------------------------------------------------------------------
-
             var buttons = new List<Button>();
-
             for (int i = 1; i <= 40; i++)
             {
                 var button = (Button)Controls["button" + i];
                     buttons.Add(button);
             }
 
-
-            var buttonManager = new ButtonManager(this, buttonParams, buttons);
+            var buttonManager = new ButtonManager( buttonParams, buttons);
             buttonManager.InitializeButtons();
 
             await Task.Delay(Timeout.Infinite);
-
         }
 
-//-------------------------------------------------------------------------------------------------------------------------------------
 
 
 
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Alle events van buttons, faders, timers en checkboxes zijn hier in de code onder gezet.
+        /// </summary>
+        //-------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-private bool isOn = true;
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn; // Toggle the boolean valuef
-            button1.Tag = isOn; // Store the valuef in the Tag property
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn; // Toggle the boolean valuef
-            button2.Tag = isOn; // Store the valuef in the Tag property
-        }
 
         static int tellertje;
         private List<TrackBar> trackBars;
@@ -463,12 +175,7 @@ private bool isOn = true;
         private object lstdata;
 
 
-
-
-
-        // Moving all the 10 ffaders
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)  // om de faders even te laten bewegen
         {
             // Increment the counter and wrap it around.
             tellertje = (tellertje + 1) % 1001;
@@ -495,20 +202,29 @@ private bool isOn = true;
             }
         }
 
-
-
-
-
-
         private void Form1_Shown(object sender, EventArgs e)
         {
 
         }
+
         private void CheckBox1_CheckedChanged(object? sender, EventArgs e)
         {
 
         }
 
+        private bool isOn = true;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            isOn = !isOn;
+            button1.Tag = isOn;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            isOn = !isOn;
+            button2.Tag = isOn;
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -556,67 +272,6 @@ private bool isOn = true;
         {
             isOn = !isOn;
             button10.Tag = isOn;
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar4_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar3_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar8_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar7_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar6_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar5_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar10_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar9_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_DataContextChanged(object sender, EventArgs e)
-        {
-            //int listdata = listBox1.Items.Add("willem");
-            //FaderManager fdr = new FaderManager(listdata);
         }
 
         private void button20_Click(object sender, EventArgs e)
@@ -799,6 +454,66 @@ private bool isOn = true;
             button30.Tag = isOn;
         }
 
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar8_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar7_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar6_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar5_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar10_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar9_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_DataContextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             timer1.Enabled = checkBox1.Checked;
@@ -808,13 +523,24 @@ private bool isOn = true;
         {
             checkboxloggingEnabled = checkBox2.Checked;
         }
-
-        //private void timer1_Tick_1(object sender, EventArgs e)
-        //{
-
-        //}
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////-----------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -935,3 +661,238 @@ private bool isOn = true;
 //    }
 //}
 
+
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+
+//////private sealed class MyRoot : DynamicRoot<MyRoot>
+//////{
+//////}
+
+
+//////public Consumer<GetSet.AuronRoot> consumer;
+//////private List<IParameter> faderParams;
+//////private INode root;
+
+//////private async Task StartEmberPlusListenerAsync()
+//////{
+//////    using var client = await ConnectAsync("localhost", 9000);
+//////    consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+//////    root = consumer.Root;
+
+//////    faderParams = new List<IParameter>
+//////    {
+//////        consumer.Root.auron.modules.module_1.path.fader,
+//////        consumer.Root.auron.modules.module_2.path.fader,
+//////        consumer.Root.auron.modules.module_3.path.fader,
+//////        consumer.Root.auron.modules.module_4.path.fader,
+//////        consumer.Root.auron.modules.module_5.path.fader,
+//////        consumer.Root.auron.modules.module_6.path.fader,
+//////        consumer.Root.auron.modules.module_7.path.fader,
+//////        consumer.Root.auron.modules.module_8.path.fader,
+//////        consumer.Root.auron.modules.module_9.path.fader,
+//////        consumer.Root.auron.modules.module_10.path.fader
+//////    };
+
+
+//////    var trackBars = new List<TrackBar>
+//////    {
+//////        trackBar1, trackBar2, trackBar3, trackBar4, trackBar5,
+//////        trackBar6, trackBar7, trackBar8, trackBar9, trackBar10
+//////    };
+
+//////    var faderManager = new FaderManager(this, faderParams, trackBars);
+//////    faderManager.InitializeFaders();
+
+
+
+
+
+//////    List<IParameter> buttonParams = new List<IParameter>
+//////    {
+//////        consumer.Root.auron.modules.module_1.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_2.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_3.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_4.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_5.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_6.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_7.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_8.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_9.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_10.control.sw_1.state,
+//////        consumer.Root.auron.modules.module_1.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_2.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_3.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_4.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_5.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_6.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_7.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_8.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_9.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_10.control.sw_2.state,
+//////        consumer.Root.auron.modules.module_1.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_2.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_3.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_4.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_5.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_6.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_7.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_8.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_9.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_10.control.sw_3.state,
+//////        consumer.Root.auron.modules.module_1.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_2.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_3.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_4.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_5.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_6.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_7.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_8.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_9.control.sw_4.state,
+//////        consumer.Root.auron.modules.module_10.control.sw_4.state,   // 40
+
+//////        consumer.Root.auron.modules.module_1.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_2.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_3.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_4.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_5.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_6.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_7.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_8.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_9.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_10.control.sw_1.mode,
+//////        consumer.Root.auron.modules.module_1.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_2.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_3.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_4.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_5.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_6.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_7.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_8.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_9.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_10.control.sw_2.mode,
+//////        consumer.Root.auron.modules.module_1.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_2.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_3.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_4.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_5.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_6.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_7.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_8.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_9.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_10.control.sw_3.mode,
+//////        consumer.Root.auron.modules.module_1.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_2.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_3.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_4.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_5.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_6.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_7.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_8.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_9.control.sw_4.mode,
+//////        consumer.Root.auron.modules.module_10.control.sw_4.mode,    // 80
+
+//////        consumer.Root.auron.modules.module_1.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_2.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_3.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_4.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_5.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_6.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_7.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_8.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_9.control.sw_1.color_on,
+//////       consumer.Root.auron.modules.module_10.control.sw_1.color_on,
+//////        consumer.Root.auron.modules.module_1.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_2.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_3.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_4.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_5.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_6.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_7.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_8.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_9.control.sw_2.color_on,
+//////       consumer.Root.auron.modules.module_10.control.sw_2.color_on,
+//////        consumer.Root.auron.modules.module_1.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_2.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_3.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_4.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_5.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_6.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_7.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_8.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_9.control.sw_3.color_on,
+//////       consumer.Root.auron.modules.module_10.control.sw_3.color_on,
+//////        consumer.Root.auron.modules.module_1.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_2.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_3.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_4.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_5.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_6.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_7.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_8.control.sw_4.color_on,
+//////        consumer.Root.auron.modules.module_9.control.sw_4.color_on,
+//////       consumer.Root.auron.modules.module_10.control.sw_4.color_on,  //  120
+
+//////        consumer.Root.auron.modules.module_1.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_2.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_3.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_4.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_5.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_6.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_7.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_8.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_9.control.sw_1.color_off,
+//////       consumer.Root.auron.modules.module_10.control.sw_1.color_off,
+//////        consumer.Root.auron.modules.module_1.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_2.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_3.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_4.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_5.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_6.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_7.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_8.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_9.control.sw_2.color_off,
+//////       consumer.Root.auron.modules.module_10.control.sw_2.color_off,
+//////        consumer.Root.auron.modules.module_1.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_2.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_3.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_4.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_5.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_6.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_7.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_8.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_9.control.sw_3.color_off,
+//////       consumer.Root.auron.modules.module_10.control.sw_3.color_off,
+//////        consumer.Root.auron.modules.module_1.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_2.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_3.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_4.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_5.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_6.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_7.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_8.control.sw_4.color_off,
+//////        consumer.Root.auron.modules.module_9.control.sw_4.color_off,
+//////       consumer.Root.auron.modules.module_10.control.sw_4.color_off   // 160
+//////    };
+
+
+//////    var buttons = new List<Button>
+//////    {
+//////        button1, button2, button3, button4, button5,
+//////        button6, button7, button8, button9, button10,
+//////        button11, button12, button13, button14, button15,
+//////        button16, button17, button18, button19, button20,
+//////        button21, button22, button23, button24, button25,
+//////        button26, button27, button28, button29, button30,
+//////        button31, button32, button33, button34, button35,
+//////        button36, button37, button38, button39, button40
+//////    };
+
+//////    var buttonManager = new ButtonManager(this, buttonParams, buttons);
+//////    buttonManager.InitializeButtons();
+
+//////    await Task.Delay(Timeout.Infinite);
+//////    //await consumer.SendAsync();
+//////}
