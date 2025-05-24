@@ -1,8 +1,9 @@
 ﻿using Lawo.EmberPlusSharp.Model;
 using Lawo.EmberPlusSharp.S101;
+using System.Net;
 using System.Net.Sockets;
-using TrackBar = System.Windows.Forms.TrackBar;
 using Button = System.Windows.Forms.Button;
+using TrackBar = System.Windows.Forms.TrackBar;
 
 namespace EmberPlusWinForms
 {
@@ -12,9 +13,11 @@ namespace EmberPlusWinForms
         private FaderManager faderManager;
         private ButtonManager buttonManager;
         public static Form1? instanse;
+        string ipaddress;
 
         public Form1()   // constructor
         {
+
             InitializeComponent();
             instanse = this;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
@@ -23,6 +26,19 @@ namespace EmberPlusWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (!(File.Exists("ip.txt")))
+            {
+                File.WriteAllText("ip.txt", "127.0.0.1");
+            }
+            bool isEmpty = new FileInfo("ip.txt").Length == 0;
+            if (isEmpty)
+            {
+                Console.WriteLine("The file is empty.");
+                ipaddress = "127.0.0.1";
+            }
+            string content = File.ReadAllText("ip.txt");
+            textBox2.Text = content;
+            ipaddress = textBox2.Text;
             timer1.Stop();
             Task startEmberPlusListenerAsync = StartEmberPlusListenerAsync();
             faderManager = new FaderManager(faderParams, trackBars);
@@ -55,7 +71,6 @@ namespace EmberPlusWinForms
         }
 
 
-
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
@@ -78,7 +93,7 @@ namespace EmberPlusWinForms
 
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync("192.168.1.2", 9000);
+            using var client = await ConnectAsync(ipaddress, 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             {
                 var connectionLost = new TaskCompletionSource<Exception>();
@@ -135,8 +150,6 @@ namespace EmberPlusWinForms
             };
 
 
-
-
             List<IParameter> buttonParams = new List<IParameter>();
 
             int aantalMoules = modules.Length;
@@ -190,8 +203,6 @@ namespace EmberPlusWinForms
 
             await Task.Delay(Timeout.Infinite);
         }
-
-
 
 
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -260,6 +271,39 @@ namespace EmberPlusWinForms
         }
 
         private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ipbutton_Click(object sender, EventArgs e)
+        {
+            startIPverbinding();
+        }
+        private async void startIPverbinding()
+        {
+            ipaddress = textBox2.Text;
+            File.WriteAllText("ip.txt", ipaddress);
+            await StartEmberPlusListenerAsync(); // run without blocking UI
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;      // Prevents further processing
+                e.SuppressKeyPress = true; // Prevents the 'ding' sound or newline
+
+                startIPverbinding();
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ipaddress = textBox2.Text;
+            File.WriteAllText("ip.txt", ipaddress);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

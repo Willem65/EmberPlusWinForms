@@ -84,6 +84,7 @@
             button40 = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
             checkBox2 = new CheckBox();
+            ipbutton = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
@@ -108,11 +109,13 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(93, 12);
+            textBox2.Location = new Point(128, 21);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(434, 23);
+            textBox2.Size = new Size(114, 23);
             textBox2.TabIndex = 2;
+            textBox2.TextChanged += textBox2_TextChanged;
+            textBox2.KeyDown += textBox2_KeyDown;
             // 
             // trackBar1
             // 
@@ -644,12 +647,23 @@
             checkBox2.UseVisualStyleBackColor = true;
             checkBox2.CheckedChanged += checkBox2_CheckedChanged;
             // 
+            // ipbutton
+            // 
+            ipbutton.Location = new Point(34, 21);
+            ipbutton.Name = "ipbutton";
+            ipbutton.Size = new Size(79, 23);
+            ipbutton.TabIndex = 55;
+            ipbutton.Text = "Ip address";
+            ipbutton.UseVisualStyleBackColor = true;
+            ipbutton.Click += ipbutton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1471, 745);
+            Controls.Add(ipbutton);
             Controls.Add(checkBox2);
             Controls.Add(button21);
             Controls.Add(button22);
@@ -706,6 +720,7 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             Shown += Form1_Shown;
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
@@ -778,5 +793,6 @@
         private Button button40;
         private System.Windows.Forms.Timer timer1;
         private CheckBox checkBox2;
+        private Button ipbutton;
     }
 }
