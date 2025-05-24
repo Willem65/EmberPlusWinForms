@@ -105,7 +105,6 @@
             button1.Tag = "ON";
             button1.Text = "ON";
             button1.UseVisualStyleBackColor = true;
-           // button1.MouseDown += button1_MouseDown;
             // 
             // textBox2
             // 
@@ -124,7 +123,6 @@
             trackBar1.Size = new Size(45, 281);
             trackBar1.TabIndex = 3;
             trackBar1.Value = 512;
-           // trackBar1.Scroll += trackBar1_Scroll;
             // 
             // button2
             // 
@@ -135,7 +133,6 @@
             button2.Tag = "ON";
             button2.Text = "ON";
             button2.UseVisualStyleBackColor = true;
-            //button2.MouseDown += button2_MouseDown;
             // 
             // trackBar2
             // 
@@ -146,7 +143,6 @@
             trackBar2.Size = new Size(45, 281);
             trackBar2.TabIndex = 5;
             trackBar2.Value = 512;
-           // trackBar2.Scroll += trackBar2_Scroll;
             // 
             // trackBar3
             // 
@@ -157,7 +153,6 @@
             trackBar3.Size = new Size(45, 281);
             trackBar3.TabIndex = 7;
             trackBar3.Value = 512;
-          //  trackBar3.Scroll += trackBar3_Scroll;
             // 
             // trackBar4
             // 
@@ -168,7 +163,6 @@
             trackBar4.Size = new Size(45, 281);
             trackBar4.TabIndex = 6;
             trackBar4.Value = 512;
-          //  trackBar4.Scroll += trackBar4_Scroll;
             // 
             // trackBar5
             // 
@@ -179,7 +173,6 @@
             trackBar5.Size = new Size(45, 281);
             trackBar5.TabIndex = 11;
             trackBar5.Value = 512;
-          //  trackBar5.Scroll += trackBar5_Scroll;
             // 
             // trackBar6
             // 
@@ -190,7 +183,6 @@
             trackBar6.Size = new Size(45, 281);
             trackBar6.TabIndex = 10;
             trackBar6.Value = 512;
-          //  trackBar6.Scroll += trackBar6_Scroll;
             // 
             // trackBar7
             // 
@@ -201,7 +193,6 @@
             trackBar7.Size = new Size(45, 281);
             trackBar7.TabIndex = 9;
             trackBar7.Value = 512;
-          //  trackBar7.Scroll += trackBar7_Scroll;
             // 
             // trackBar8
             // 
@@ -212,7 +203,6 @@
             trackBar8.Size = new Size(45, 281);
             trackBar8.TabIndex = 8;
             trackBar8.Value = 512;
-          //  trackBar8.Scroll += trackBar8_Scroll;
             // 
             // trackBar9
             // 
@@ -223,7 +213,6 @@
             trackBar9.Size = new Size(45, 281);
             trackBar9.TabIndex = 13;
             trackBar9.Value = 512;
-          //  trackBar9.Scroll += trackBar9_Scroll;
             // 
             // trackBar10
             // 
@@ -234,7 +223,6 @@
             trackBar10.Size = new Size(45, 281);
             trackBar10.TabIndex = 12;
             trackBar10.Value = 512;
-           // trackBar10.Scroll += trackBar10_Scroll;
             // 
             // checkBox1
             // 
@@ -249,14 +237,13 @@
             // 
             // button3
             // 
-            button3.Location = new Point(50, 252);
+            button3.Location = new Point(50, 261);
             button3.Name = "button3";
             button3.Size = new Size(43, 39);
             button3.TabIndex = 15;
             button3.Tag = "ON";
             button3.Text = "ON";
             button3.UseVisualStyleBackColor = true;
-          //  button3.MouseDown += button3_MouseDown;
             // 
             // button4
             // 
@@ -267,7 +254,6 @@
             button4.Tag = "ON";
             button4.Text = "ON";
             button4.UseVisualStyleBackColor = true;
-          //  button4.MouseDown += button4_MouseDown;
             // 
             // button5
             // 
@@ -278,7 +264,6 @@
             button5.Tag = "ON";
             button5.Text = "ON";
             button5.UseVisualStyleBackColor = true;
-           // button5.MouseDown += button5_MouseDown;
             // 
             // button6
             // 
@@ -289,29 +274,27 @@
             button6.Tag = "ON";
             button6.Text = "ON";
             button6.UseVisualStyleBackColor = true;
-            //button6.MouseDown += button6_MouseDown;
             // 
             // button7
             // 
-            button7.Location = new Point(153, 252);
+            button7.Location = new Point(153, 261);
             button7.Name = "button7";
             button7.Size = new Size(43, 39);
             button7.TabIndex = 19;
             button7.Tag = "ON";
             button7.Text = "ON";
             button7.UseVisualStyleBackColor = true;
-          //  button7.MouseDown += button7_MouseDown;
+            button7.Click += button7_Click;
             // 
             // button8
             // 
-            button8.Location = new Point(153, 307);
+            button8.Location = new Point(153, 306);
             button8.Name = "button8";
             button8.Size = new Size(43, 39);
             button8.TabIndex = 20;
             button8.Tag = "ON";
             button8.Text = "ON";
             button8.UseVisualStyleBackColor = true;
-           // button8.MouseDown += button8_MouseDown;
             // 
             // button9
             // 
@@ -322,7 +305,6 @@
             button9.Tag = "ON";
             button9.Text = "ON";
             button9.UseVisualStyleBackColor = true;
-          //  button9.MouseDown += button9_MouseDown;
             // 
             // button10
             // 
@@ -333,7 +315,6 @@
             button10.Tag = "ON";
             button10.Text = "ON";
             button10.UseVisualStyleBackColor = true;
-           // button10.MouseDown += button10_MouseDown;
             // 
             // listBox1
             // 
@@ -355,7 +336,6 @@
             button11.Tag = "ON";
             button11.Text = "ON";
             button11.UseVisualStyleBackColor = true;
-           // button11.MouseDown += button11_MouseDown;
             // 
             // button12
             // 
@@ -366,7 +346,6 @@
             button12.Tag = "ON";
             button12.Text = "ON";
             button12.UseVisualStyleBackColor = true;
-           // button12.MouseDown += button12_MouseDown;
             // 
             // button13
             // 
@@ -377,7 +356,6 @@
             button13.Tag = "ON";
             button13.Text = "ON";
             button13.UseVisualStyleBackColor = true;
-           // button13.Click += button13_Click;
             // 
             // button14
             // 
@@ -388,18 +366,16 @@
             button14.Tag = "ON";
             button14.Text = "ON";
             button14.UseVisualStyleBackColor = true;
-           // button14.Click += button14_Click;
             // 
             // button15
             // 
-            button15.Location = new Point(390, 261);
+            button15.Location = new Point(388, 261);
             button15.Name = "button15";
             button15.Size = new Size(43, 39);
             button15.TabIndex = 29;
             button15.Tag = "ON";
             button15.Text = "ON";
             button15.UseVisualStyleBackColor = true;
-           // button15.Click += button15_Click;
             // 
             // button16
             // 
@@ -410,7 +386,6 @@
             button16.Tag = "ON";
             button16.Text = "ON";
             button16.UseVisualStyleBackColor = true;
-           // button16.Click += button16_Click;
             // 
             // button17
             // 
@@ -421,7 +396,6 @@
             button17.Tag = "ON";
             button17.Text = "ON";
             button17.UseVisualStyleBackColor = true;
-           // button17.Click += button17_Click;
             // 
             // button18
             // 
@@ -432,7 +406,6 @@
             button18.Tag = "ON";
             button18.Text = "ON";
             button18.UseVisualStyleBackColor = true;
-           // button18.Click += button18_Click;
             // 
             // button19
             // 
@@ -443,7 +416,6 @@
             button19.Tag = "ON";
             button19.Text = "ON";
             button19.UseVisualStyleBackColor = true;
-          //  button19.Click += button19_Click;
             // 
             // button20
             // 
@@ -454,7 +426,6 @@
             button20.Tag = "ON";
             button20.Text = "ON";
             button20.UseVisualStyleBackColor = true;
-          //  button20.Click += button20_Click;
             // 
             // button21
             // 
@@ -465,7 +436,6 @@
             button21.Tag = "ON";
             button21.Text = "ON";
             button21.UseVisualStyleBackColor = true;
-          //  button21.Click += button21_Click;
             // 
             // button22
             // 
@@ -476,7 +446,6 @@
             button22.Tag = "ON";
             button22.Text = "ON";
             button22.UseVisualStyleBackColor = true;
-           // button22.Click += button22_Click;
             // 
             // button23
             // 
@@ -487,7 +456,6 @@
             button23.Tag = "ON";
             button23.Text = "ON";
             button23.UseVisualStyleBackColor = true;
-          //  button23.Click += button23_Click;
             // 
             // button24
             // 
@@ -498,7 +466,6 @@
             button24.Tag = "ON";
             button24.Text = "ON";
             button24.UseVisualStyleBackColor = true;
-          //  button24.Click += button24_Click;
             // 
             // button25
             // 
@@ -509,7 +476,6 @@
             button25.Tag = "ON";
             button25.Text = "ON";
             button25.UseVisualStyleBackColor = true;
-          //  button25.Click += button25_Click;
             // 
             // button26
             // 
@@ -520,7 +486,6 @@
             button26.Tag = "ON";
             button26.Text = "ON";
             button26.UseVisualStyleBackColor = true;
-           // button26.Click += button26_Click;
             // 
             // button27
             // 
@@ -531,7 +496,6 @@
             button27.Tag = "ON";
             button27.Text = "ON";
             button27.UseVisualStyleBackColor = true;
-          //  button27.Click += button27_Click;
             // 
             // button28
             // 
@@ -542,7 +506,6 @@
             button28.Tag = "ON";
             button28.Text = "ON";
             button28.UseVisualStyleBackColor = true;
-          //  button28.Click += button28_Click;
             // 
             // button29
             // 
@@ -553,7 +516,6 @@
             button29.Tag = "ON";
             button29.Text = "ON";
             button29.UseVisualStyleBackColor = true;
-          //  button29.Click += button29_Click;
             // 
             // button30
             // 
@@ -564,7 +526,6 @@
             button30.Tag = "ON";
             button30.Text = "ON";
             button30.UseVisualStyleBackColor = true;
-          //  button30.Click += button30_Click;
             // 
             // button31
             // 
@@ -575,7 +536,6 @@
             button31.Tag = "ON";
             button31.Text = "ON";
             button31.UseVisualStyleBackColor = true;
-          //  button31.Click += button31_Click;
             // 
             // button32
             // 
@@ -586,7 +546,6 @@
             button32.Tag = "ON";
             button32.Text = "ON";
             button32.UseVisualStyleBackColor = true;
-          //  button32.Click += button32_Click;
             // 
             // button33
             // 
@@ -597,7 +556,6 @@
             button33.Tag = "ON";
             button33.Text = "ON";
             button33.UseVisualStyleBackColor = true;
-          //  button33.Click += button33_Click;
             // 
             // button34
             // 
@@ -608,7 +566,6 @@
             button34.Tag = "ON";
             button34.Text = "ON";
             button34.UseVisualStyleBackColor = true;
-          //  button34.Click += button34_Click;
             // 
             // button35
             // 
@@ -619,7 +576,6 @@
             button35.Tag = "ON";
             button35.Text = "ON";
             button35.UseVisualStyleBackColor = true;
-          //  button35.Click += button35_Click;
             // 
             // button36
             // 
@@ -630,7 +586,6 @@
             button36.Tag = "ON";
             button36.Text = "ON";
             button36.UseVisualStyleBackColor = true;
-         //   button36.Click += button36_Click;
             // 
             // button37
             // 
@@ -641,7 +596,6 @@
             button37.Tag = "ON";
             button37.Text = "ON";
             button37.UseVisualStyleBackColor = true;
-          //  button37.Click += button37_Click;
             // 
             // button38
             // 
@@ -652,7 +606,6 @@
             button38.Tag = "ON";
             button38.Text = "ON";
             button38.UseVisualStyleBackColor = true;
-          //  button38.Click += button38_Click;
             // 
             // button39
             // 
@@ -663,7 +616,6 @@
             button39.Tag = "ON";
             button39.Text = "ON";
             button39.UseVisualStyleBackColor = true;
-          //  button39.Click += button39_Click;
             // 
             // button40
             // 
@@ -674,7 +626,6 @@
             button40.Tag = "ON";
             button40.Text = "ON";
             button40.UseVisualStyleBackColor = true;
-          //  button40.Click += button40_Click;
             // 
             // timer1
             // 
