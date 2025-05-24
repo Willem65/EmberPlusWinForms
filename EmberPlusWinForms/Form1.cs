@@ -8,9 +8,7 @@ namespace EmberPlusWinForms
 {
     public partial class Form1 : Form
     {
-        bool checkboxEnabled = false;
         public bool checkboxloggingEnabled;
-        int buttonNR = 1;
         private FaderManager faderManager;
         private ButtonManager buttonManager;
         public static Form1? instanse;
@@ -19,16 +17,44 @@ namespace EmberPlusWinForms
         {
             InitializeComponent();
             instanse = this;
-            checkBox1.CheckedChanged += CheckBox1_CheckedChanged;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            RegisterButtonEvents();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Stop();
             Task startEmberPlusListenerAsync = StartEmberPlusListenerAsync();
-            faderManager = new FaderManager( faderParams, trackBars);
-            buttonManager = new ButtonManager( faderParams, buttons);
+            faderManager = new FaderManager(faderParams, trackBars);
+            buttonManager = new ButtonManager(faderParams, buttons);
         }
+
+
+        private void RegisterButtonEvents()
+        {
+            for (int i = 0; i < this.Controls.Count; i++)
+            {
+                if (this.Controls[i] is Button btn && btn.Name.StartsWith("button"))
+                {
+                    btn.Tag = true; // initial state ON
+                    btn.Text = "ON";
+                    btn.MouseDown += ToggleButton;
+                }
+            }
+        }
+
+        private void ToggleButton(object sender, MouseEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                bool state = (bool)(btn.Tag ?? true); // default to true if Tag is null
+                state = !state;
+                btn.Tag = state;
+                btn.Text = state ? "ON" : "OFF";
+            }
+        }
+
+
 
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
@@ -86,9 +112,9 @@ namespace EmberPlusWinForms
             {
                 var trackBar = (TrackBar)Controls["trackBar" + i];
                 trackBars.Add(trackBar);
-            }                     
+            }
 
-            var faderManager = new FaderManager( faderParams, trackBars);
+            var faderManager = new FaderManager(faderParams, trackBars);
             faderManager.InitializeFaders();
 
             //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
@@ -156,10 +182,10 @@ namespace EmberPlusWinForms
             for (int i = 1; i <= 40; i++)
             {
                 var button = (Button)Controls["button" + i];
-                    buttons.Add(button);
+                buttons.Add(button);
             }
 
-            var buttonManager = new ButtonManager( buttonParams, buttons);
+            var buttonManager = new ButtonManager(buttonParams, buttons);
             buttonManager.InitializeButtons();
 
             await Task.Delay(Timeout.Infinite);
@@ -213,302 +239,362 @@ namespace EmberPlusWinForms
 
         }
 
-        private void CheckBox1_CheckedChanged(object? sender, EventArgs e)
-        {
+        //private bool isOn = true;
+        //private bool isOn2 = true;
+        //private bool isOn3 = true;
+        //private bool isOn4 = true;
+        //private bool isOn5 = true;
+        //private bool isOn6 = true;
+        //private bool isOn7 = true;
+        //private bool isOn8 = true;
+        //private bool isOn9 = true;
+        //private bool isOn10 = true;
+        //private bool isOn11 = true;
+        //private bool isOn12 = true;
+        //private bool isOn13 = true;
+        //private bool isOn14 = true;
+        //private bool isOn15 = true;
+        //private bool isOn16 = true;
+        //private bool isOn17 = true;
+        //private bool isOn18 = true;
+        //private bool isOn19 = true;
+        //private bool isOn20 = true;
+        //private bool isOn21 = true;
+        //private bool isOn22 = true;
+        //private bool isOn23 = true;
+        //private bool isOn24 = true;
+        //private bool isOn25 = true;
+        //private bool isOn26 = true;
+        //private bool isOn27 = true;
+        //private bool isOn28 = true;
+        //private bool isOn29 = true;
+        //private bool isOn30 = true;
+        //private bool isOn31 = true;
+        //private bool isOn32 = true;
+        //private bool isOn33 = true;
+        //private bool isOn34 = true;
+        //private bool isOn35 = true;
+        //private bool isOn36 = true;
+        //private bool isOn37 = true;
+        //private bool isOn38 = true;
+        //private bool isOn39 = true;
+        //private bool isOn40 = true;
 
-        }
+        //private void button1_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button1.Tag = isOn;
+        //    button1.Text = isOn ? "ON" : "OFF";
+        //}
 
-        private bool isOn = true;
+        //private void button2_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn2 = !isOn2;
+        //    button2.Tag = isOn2;
+        //    button2.Text = isOn2 ? "ON" : "OFF";
+        //}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button1.Tag = isOn;
-        }
+        //private void button3_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn3 = !isOn3;
+        //    button3.Tag = isOn3;
+        //    button3.Text = isOn3 ? "ON" : "OFF";
+        //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button2.Tag = isOn;
-        }
+        //private void button4_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn4 = !isOn4;
+        //    button4.Tag = isOn4;
+        //    button4.Text = isOn4 ? "ON" : "OFF";
+        //}
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button3.Tag = isOn;
-        }
+        //private void button5_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn5 = !isOn5;
+        //    button5.Tag = isOn5;
+        //    button5.Text = isOn5 ? "ON" : "OFF";
+        //}
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button4.Tag = isOn;
-        }
+        //private void button6_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn6 = !isOn6;
+        //    button6.Tag = isOn6;
+        //    button6.Text = isOn6 ? "ON" : "OFF";
+        //}
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button5.Tag = isOn;
-        }
+        //private void button7_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn7 = !isOn7;
+        //    button7.Tag = isOn7;
+        //    button7.Text = isOn7 ? "ON" : "OFF";
+        //}
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button6.Tag = isOn;
-        }
+        //private void button8_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn8 = !isOn8;
+        //    button8.Tag = isOn8;
+        //    button8.Text = isOn8 ? "ON" : "OFF";
+        //}
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button7.Tag = isOn;
-        }
+        //private void button9_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn9 = !isOn9;
+        //    button9.Tag = isOn9;
+        //    button9.Text = isOn9 ? "ON" : "OFF";
+        //}
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button8.Tag = isOn;
-        }
+        //private void button10_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn10 = !isOn10;
+        //    button10.Tag = isOn10;
+        //    button10.Text = isOn10 ? "ON" : "OFF";
+        //}
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button9.Tag = isOn;
-        }
+        //private void button11_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn11 = !isOn11;
+        //    button11.Tag = isOn11;
+        //    button11.Text = isOn11 ? "ON" : "OFF";
+        //}
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button10.Tag = isOn;
-        }
+        //private void button12_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    isOn12 = !isOn12;
+        //    button12.Tag = isOn12;
+        //    button12.Text = isOn12 ? "ON" : "OFF";
+        //}
 
-        private void button20_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button20.Tag = isOn;
-        }
 
-        private void button11_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button11.Tag = isOn;
-        }
 
-        private void button12_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button12.Tag = isOn;
-        }
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button13.Tag = isOn;
-        }
 
-        private void button14_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button14.Tag = isOn;
-        }
 
-        private void button15_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button15.Tag = isOn;
-        }
 
-        private void button16_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button16.Tag = isOn;
-        }
 
-        private void button17_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button17.Tag = isOn;
-        }
 
-        private void button18_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button18.Tag = isOn;
-        }
 
-        private void button19_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button19.Tag = isOn;
-        }
 
-        private void button31_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button31.Tag = isOn;
-        }
 
-        private void button32_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button32.Tag = isOn;
-        }
 
-        private void button33_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button33.Tag = isOn;
-        }
+        //private void button20_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button20.Tag = isOn;
+        //}
 
-        private void button34_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button34.Tag = isOn;
-        }
 
-        private void button35_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button35.Tag = isOn;
-        }
 
-        private void button36_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button36.Tag = isOn;
-        }
+        //private void button13_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button13.Tag = isOn;
+        //}
 
-        private void button37_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button37.Tag = isOn;
-        }
+        //private void button14_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button14.Tag = isOn;
+        //}
 
-        private void button38_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button38.Tag = isOn;
-        }
+        //private void button15_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button15.Tag = isOn;
+        //}
 
-        private void button39_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button39.Tag = isOn;
-        }
+        //private void button16_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button16.Tag = isOn;
+        //}
 
-        private void button40_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button40.Tag = isOn;
-        }
+        //private void button17_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button17.Tag = isOn;
+        //}
 
-        private void button21_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button21.Tag = isOn;
-        }
+        //private void button18_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button18.Tag = isOn;
+        //}
 
-        private void button22_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button22.Tag = isOn;
-        }
+        //private void button19_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button19.Tag = isOn;
+        //}
 
-        private void button23_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button23.Tag = isOn;
-        }
+        //private void button31_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button31.Tag = isOn;
+        //}
 
-        private void button24_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button24.Tag = isOn;
-        }
+        //private void button32_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button32.Tag = isOn;
+        //}
 
-        private void button25_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button25.Tag = isOn;
-        }
+        //private void button33_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button33.Tag = isOn;
+        //}
 
-        private void button26_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button26.Tag = isOn;
-        }
+        //private void button34_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button34.Tag = isOn;
+        //}
 
-        private void button27_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button27.Tag = isOn;
-        }
+        //private void button35_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button35.Tag = isOn;
+        //}
 
-        private void button28_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button28.Tag = isOn;
-        }
+        //private void button36_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button36.Tag = isOn;
+        //}
 
-        private void button29_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button29.Tag = isOn;
-        }
+        //private void button37_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button37.Tag = isOn;
+        //}
 
-        private void button30_Click(object sender, EventArgs e)
-        {
-            isOn = !isOn;
-            button30.Tag = isOn;
-        }
+        //private void button38_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button38.Tag = isOn;
+        //}
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
+        //private void button39_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button39.Tag = isOn;
+        //}
 
-        }
+        //private void button40_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button40.Tag = isOn;
+        //}
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
+        //private void button21_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button21.Tag = isOn;
+        //}
 
-        }
+        //private void button22_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button22.Tag = isOn;
+        //}
 
-        private void trackBar4_Scroll(object sender, EventArgs e)
-        {
+        //private void button23_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button23.Tag = isOn;
+        //}
 
-        }
+        //private void button24_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button24.Tag = isOn;
+        //}
 
-        private void trackBar3_Scroll(object sender, EventArgs e)
-        {
+        //private void button25_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button25.Tag = isOn;
+        //}
 
-        }
+        //private void button26_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button26.Tag = isOn;
+        //}
 
-        private void trackBar8_Scroll(object sender, EventArgs e)
-        {
+        //private void button27_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button27.Tag = isOn;
+        //}
 
-        }
+        //private void button28_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button28.Tag = isOn;
+        //}
 
-        private void trackBar7_Scroll(object sender, EventArgs e)
-        {
+        //private void button29_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button29.Tag = isOn;
+        //}
 
-        }
+        //private void button30_Click(object sender, EventArgs e)
+        //{
+        //    isOn = !isOn;
+        //    button30.Tag = isOn;
+        //}
 
-        private void trackBar6_Scroll(object sender, EventArgs e)
-        {
+        //private void trackBar1_Scroll(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void trackBar5_Scroll(object sender, EventArgs e)
-        {
+        //private void trackBar2_Scroll(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void trackBar10_Scroll(object sender, EventArgs e)
-        {
+        //private void trackBar4_Scroll(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void trackBar9_Scroll(object sender, EventArgs e)
-        {
+        //private void trackBar3_Scroll(object sender, EventArgs e)
+        //{
 
-        }
+        //}
+
+        //private void trackBar8_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void trackBar7_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void trackBar6_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void trackBar5_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void trackBar10_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void trackBar9_Scroll(object sender, EventArgs e)
+        //{
+
+        //}
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -529,6 +615,9 @@ namespace EmberPlusWinForms
         {
             checkboxloggingEnabled = checkBox2.Checked;
         }
+        //checkBox1.CheckedChanged += CheckBox1_CheckedChanged;
+        //checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+
     }
 }
 
@@ -902,3 +991,26 @@ namespace EmberPlusWinForms
 //////    await Task.Delay(Timeout.Infinite);
 //////    //await consumer.SendAsync();
 //////}
+
+
+
+//private void RegisterFaderEvents()
+//{
+//    for (int i = 0; i < this.Controls.Count; i++)
+//    {
+//        //if (this.Controls[i] is TrackBar trackb && trackb.Name.StartsWith("trackbar"))
+//           // trackb.Scroll += MoveFaders;
+//    }
+//}
+
+
+
+//// Update the MoveFaders method to match the EventHandler delegate signature
+//private void MoveFaders(object sender, EventArgs e)
+//{
+//    if (sender is TrackBar trackBar)
+//    {
+//        // Add your logic for handling the TrackBar scroll event here
+//        // Example: Update the fader value or perform other actions
+//    }
+//}

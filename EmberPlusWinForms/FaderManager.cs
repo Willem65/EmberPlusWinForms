@@ -7,7 +7,7 @@ namespace EmberPlusWinForms
     {
         private readonly List<IParameter> _faderParams;
         private readonly List<TrackBar> _trackBars;
-        private readonly Form _form;
+       // private readonly Form _form;
 
         public FaderManager( List<IParameter> faderParams, List<TrackBar> trackBars)
         {
