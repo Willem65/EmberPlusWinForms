@@ -17,7 +17,6 @@ namespace EmberPlusWinForms
 
         public Form1()   // constructor
         {
-
             InitializeComponent();
             instanse = this;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
@@ -74,18 +73,22 @@ namespace EmberPlusWinForms
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
+            //if (tcpClient.Connected == true)
+            //{
+            //    Form1.instanse.listBox1.Items.Add("Connection lost or wrong IP");
+            //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
+            //}
             await tcpClient.ConnectAsync(host, port); // Ensure this is awaited
             var stream = tcpClient.GetStream();
             await Task.Delay(300); // Optional delay if needed
             return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
         }
 
-        //-------------- Start -----------------------------------------------------------------------------------------------------------------------
-
-
         private sealed class MyRoot : DynamicRoot<MyRoot>
         {
         }
+
+        //-------------- Start -----------------------------------------------------------------------------------------------------------------------
 
         public Consumer<GetSet.AuronRoot> consumer;
         private List<IParameter> faderParams;
@@ -95,14 +98,6 @@ namespace EmberPlusWinForms
         {
             using var client = await ConnectAsync(ipaddress, 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
-            {
-                var connectionLost = new TaskCompletionSource<Exception>();
-                consumer.ConnectionLost += (s, e) => connectionLost.SetResult(e.Exception);
-                await Task.Delay(500); // Optional delay if needed
-                Form1.instanse.listBox1.Items.Add($" Connection Lost! ");
-                Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-            }
-
             root = consumer.Root;
 
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------
