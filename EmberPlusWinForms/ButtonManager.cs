@@ -88,7 +88,7 @@ namespace EmberPlusWinForms
 
                     state = (bool)(button.Tag ?? true); // default to true if Tag is null
 
-                    Form1.instanse.listBox1.Items.Add($"          Receive-Statee: {state}");
+                    Form1.instanse.listBox1.Items.Add($"          Receive-State: {state}");
                     Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
 
                     //if ((bool)button.Tag)
