@@ -23,7 +23,12 @@ namespace EmberPlusWinForms
             {
                 Button btn = blinkingButtons[i];
                 Color originalColor = originalColors[btn];
-                btn.BackColor = btn.BackColor == originalColor ? Color.Transparent : originalColor;
+                //btn.BackColor = btn.BackColor == originalColor ? Color.Transparent : originalColor;
+                if (btn.BackColor == originalColor)
+                    btn.BackColor = Color.Transparent;
+                else
+                    btn.BackColor = originalColor;
+
             }
         }
 
@@ -44,9 +49,9 @@ namespace EmberPlusWinForms
 
             timer2.Tick += timer2_Tick;
 
-            for (int i = 0; i < 40; i++)   // 40
+           // for (int i = 0; i < 40; i++)   // 40
             {
-                int index = i;
+                int index = 0;
                 var button = _buttons[index];
                 var parameter = _parameters[index];
 
@@ -67,12 +72,14 @@ namespace EmberPlusWinForms
 
                 parameter.PropertyChanged += async  (sender, args) =>   // Handle receiving data (Ember+ update UI)
                 {
-                    await Task.Delay(20); // Simulating async work
+                    //await Task.Delay(20); // Simulating async work
+                    await Task.CompletedTask;
                     var param = sender as IParameter;
                     button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
 
-                    button.BackColor = DetermineBackColor((bool)param.Value, index);
-                    int mode = Convert.ToInt32(_parameters[index + 40].Value);
+                
+                //    button.BackColor = DetermineBackColor((bool)param.Value, index);
+                //    int mode = Convert.ToInt32(_parameters[index + 40].Value);
 
                 //    if (mode > 0)
                 //    {
@@ -96,7 +103,8 @@ namespace EmberPlusWinForms
                     try
                     {
                         button.Enabled = false; // Prevent multiple clicks
-                        await Task.Delay(10); // Simulating async work
+                        //await Task.Delay(2); // Simulating async work
+                        await Task.CompletedTask;
                         //MessageBox.Show("Button clicked!");
                     }
                     catch (Exception ex)
