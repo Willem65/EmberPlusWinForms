@@ -47,8 +47,8 @@ namespace EmberPlusWinForms
             for (int i = 0; i < 40; i++)   // 40
             {
                 int index = i;
-                var button = _buttons[i];
-                var parameter = _parameters[i];
+                var button = _buttons[index];
+                var parameter = _parameters[index];
 
                 button.BackColor = DetermineBackColor((bool)parameter.Value, index);
                 int mode = Convert.ToInt32(_parameters[index + 40].Value);
