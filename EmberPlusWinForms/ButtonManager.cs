@@ -8,30 +8,11 @@ namespace EmberPlusWinForms
     using System.Drawing;
     using System.Threading.Tasks;
     using System.Windows.Forms;
-    using static System.Windows.Forms.AxHost;
 
     class ButtonManager
     {       
         private readonly List<IParameter> _parameters;
         private readonly List<Button> _buttons;
-        private Timer timer2;
-        private List<Button> blinkingButtons = new List<Button>();
-        private Dictionary<Button, Color> originalColors = new Dictionary<Button, Color>();
-
-        //private void timer2_Tick(object sender, EventArgs e)  // laat de knoppen knipperen
-        //{        
-        //    for (int i = 0; i < blinkingButtons.Count; i++)
-        //    {
-        //        Button btn = blinkingButtons[i];
-        //        Color originalColor = originalColors[btn];
-        //        //btn.BackColor = btn.BackColor == originalColor ? Color.Transparent : originalColor;
-        //        if (btn.BackColor == originalColor)
-        //            btn.BackColor = Color.Transparent;
-        //        else
-        //            btn.BackColor = originalColor;
-
-        //    }
-        //}
 
         public ButtonManager( List<IParameter> parameters, List<Button> buttons)  // Lawo parameters , Windows buttons
         {
@@ -39,19 +20,11 @@ namespace EmberPlusWinForms
             _buttons = buttons;
         }
 
-        //------------------------------------------------------------------------------------------------------------
         private bool isOn = true;
         private bool state;
 
         public void InitializeButtons()
         {
-            //timer2 = new Timer
-            //{
-            //    Interval = 500 // Adjust the blink speed in milliseconds
-            //};
-
-            //timer2.Tick += timer2_Tick;
-
             for (int i = 0; i < _buttons.Count; i++)   // 40
             {
                 int index = i;
@@ -62,104 +35,20 @@ namespace EmberPlusWinForms
                                                        // 80-120 de on_color
                                                        // 120-160 de off_color van de button
 
-                //button.BackColor = DetermineBackColor((bool)parameter.Value, index);
-                //int mode = Convert.ToInt32(_parameters[index + 40].Value);
-
-                //// Store its original background color
-                //if (!originalColors.ContainsKey(button))
-                //{
-                //    originalColors[button] = button.BackColor;
-                //}
-
-                //if (mode > 0)
-                //{
-                //    blinkingButtons.Add(button);
-                //    timer2.Start();
-                //}
-
                 parameter.PropertyChanged += async (sender, args) =>   // Receiving data (Ember+ update UI)
                 {
-                    //await Task.Delay(20); // Simulating async work
                     await Task.CompletedTask;
                     var param = sender as IParameter;
                     button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
-
-                    //--------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-                    //state = (bool)(button.Tag ?? true); // default to true if Tag is null
-
-                    //Form1.instanse.listBox1.Items.Add($"          Receive-State: {state}");
-                    //Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-
-                    //if ((bool)button.Tag)
-                    //{
-                    //    state = true;
-                    //}
-                    //else
-                    //{
-                    //    state = false;
-                    //}
-
-                    //if (state)
-                    //{
-                    //    button.BackColor = Color.LightGreen; // Set to green when ON , Het is niet de bedoeling dat de back color op deze wijze wordt aangepast, maar dat gebeurt nu wel voor testing
-                    //    button.Text = "ON";
-                    //    button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
-                    //}
-                    //else
-                    //{
-                    //    button.BackColor = Color.LightSalmon; // Set to red when OFF
-                    //    button.Text = "OFF";
-                    //}
-
-                    //--------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
                     button.BackColor = DetermineBackColor((bool)param.Value, index);
-                    //    int mode = Convert.ToInt32(_parameters[index + 40].Value);
-
-                    //    if (mode > 0)
-                    //    {
-                    //        blinkingButtons.Add(button);
-                    //        timer2.Start();
-                    //    }
-                    //    else
-                    //    {
-                    //        button.BackColor = DetermineBackColor((bool)parameter.Value, index);
-                    //    }
-
-                    //if (Form1.instanse.checkboxloggingEnabled)
-                    //{
-                    //    Form1.instanse.listBox1.Items.Add($"IN <---- module: {mode}");
-                    //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-                    //}
                 };
 
-
-
-                button.MouseDown += async (s, e) =>   // Sending outgoing data (Button click sends value to Ember+)
+                button.MouseDown += async (s, e) =>   // Sending  (Button click sends value to Ember+)
                 {
-
-                    //parameter.Value = (long)button.Value;
-
-                    //isOn ^= true;       // EXOR de state, toggle between true and false
-                    //button.Tag = isOn;
-
-                    //Form1.instanse.listBox1.Items.Add($"Send-State: {isOn}");
-                    //Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-                    //button.Refresh();
-
-                    //button.Tag = true;
                     parameter.Value = true;
-
-
-                    // await SyncButtonToEmberAsync(button, parameter);
                 };
-                button.MouseUp += async (s, e) =>   // Sending outgoing data (Button click sends value to Ember+)
+                button.MouseUp += async (s, e) =>   // Sending  (Button click sends value to Ember+)
                 {
-                    //button.Tag = false;
                     parameter.Value = false;
                 };
             }
@@ -174,31 +63,14 @@ namespace EmberPlusWinForms
             else 
                 offset = _buttons.Count * 3;  // De off_color vanaf 120
 
-
             return Convert.ToInt32(_parameters[index + offset].Value) switch
             {
                 0 => Color.Transparent,
                 1 => Color.LightSalmon,
                 2 => Color.LightGreen,
-                3 => Color.Yellow
-                //  _ => Color.Transparent
+                3 => Color.Yellow,
+                 _ => Color.Transparent   // Default , voor de veiligheid, als er een onbekende waarde is
             };
-
-        }
-
-        private async Task SyncButtonToEmberAsync(Button button, IParameter parameter)  // Send the button state to Ember+ asynchronously
-        {                                                                               // Dit gedaan deze functie vanaf een andere thread kan worden aangeroepen
-            if (button.Tag is true)            {
-               
-                parameter.Value = button.Tag;
-                //if (Form1.instanse.checkboxloggingEnabled)
-                //{
-                //    Form1.instanse.listBox1.Items.Add($"OUT ---->  Tag: {state}");
-                //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-                //}
-            }
-            // Simulate async work (optional)
-            await Task.CompletedTask;
         }
     }
 }

@@ -45,31 +45,6 @@ namespace EmberPlusWinForms
         }
 
 
-        //private void RegisterButtonEvents()
-        //{
-        //    for (int i = 0; i < this.Controls.Count; i++)
-        //    {
-        //        if (this.Controls[i] is Button btn && btn.Name.StartsWith("button"))
-        //        {
-        //            btn.Tag = true; // initial state ON
-        //            btn.Text = "ON";
-        //            btn.MouseDown += ToggleButton;
-        //        }
-        //    }
-        //}
-
-        //private void ToggleButton(object sender, MouseEventArgs e)
-        //{
-        //    if (sender is Button btn)
-        //    {
-        //        bool state = (bool)(btn.Tag ?? true); // default to true if Tag is null
-        //        state = !state;
-        //        btn.Tag = state;
-        //        btn.Text = state ? "ON" : "OFF";
-        //    }
-        //}
-
-
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
@@ -148,8 +123,7 @@ namespace EmberPlusWinForms
             faderManager.InitializeFaders();
 
             //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
-            // First, gather your modules into an array for easier iteration.
-            // 
+            
 
             List<IParameter> buttonParams = new List<IParameter>();
 
