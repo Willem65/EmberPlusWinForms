@@ -79,9 +79,11 @@ namespace EmberPlusWinForms
             //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
             //}
             await tcpClient.ConnectAsync(host, port); // Ensure this is awaited
-            var stream = tcpClient.GetStream();
+            NetworkStream stream = tcpClient.GetStream();
             await Task.Delay(300); // Optional delay if needed
-            return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
+            var clients101 = new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
+            return clients101;
+            //return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
         }
 
         private sealed class MyRoot : DynamicRoot<MyRoot>
@@ -100,6 +102,24 @@ namespace EmberPlusWinForms
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             root = consumer.Root;
 
+            var modules = new[]
+{
+                consumer.Root.auron.modules.module_1,
+                consumer.Root.auron.modules.module_2,
+                consumer.Root.auron.modules.module_3,
+                //consumer.Root.auron.modules.module_4,
+                //consumer.Root.auron.modules.module_5,
+                ////consumer.Root.auron.modules.module_6,
+                ////consumer.Root.auron.modules.module_7,
+                //consumer.Root.auron.modules.module_8,
+                //consumer.Root.auron.modules.module_9,
+                //consumer.Root.auron.modules.module_10
+            };
+
+            int aantalMoules = modules.Length;
+            //int aantalMoules = 1;
+
+
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------
             // First, gather your modules into an array for easier iteration.
             //
@@ -108,17 +128,17 @@ namespace EmberPlusWinForms
                 consumer.Root.auron.modules.module_1.path.fader,
                 consumer.Root.auron.modules.module_2.path.fader,
                 consumer.Root.auron.modules.module_3.path.fader,
-                consumer.Root.auron.modules.module_4.path.fader,
-                consumer.Root.auron.modules.module_5.path.fader,
-                consumer.Root.auron.modules.module_6.path.fader,
-                consumer.Root.auron.modules.module_7.path.fader,
-                consumer.Root.auron.modules.module_8.path.fader,
-                consumer.Root.auron.modules.module_9.path.fader,
-                consumer.Root.auron.modules.module_10.path.fader
+                //consumer.Root.auron.modules.module_4.path.fader,
+                //consumer.Root.auron.modules.module_5.path.fader,
+                ////consumer.Root.auron.modules.module_6.path.fader,
+                ////consumer.Root.auron.modules.module_7.path.fader,
+                //consumer.Root.auron.modules.module_8.path.fader,
+                //consumer.Root.auron.modules.module_9.path.fader,
+                //consumer.Root.auron.modules.module_10.path.fader
             };
 
             var trackBars = new List<TrackBar>();
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= aantalMoules; i++)
             {
                 var trackBar = (TrackBar)Controls["trackBar" + i];
                 trackBars.Add(trackBar);
@@ -130,25 +150,9 @@ namespace EmberPlusWinForms
             //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
             // First, gather your modules into an array for easier iteration.
             // 
-            var modules = new[]
-            {
-                consumer.Root.auron.modules.module_1,
-                consumer.Root.auron.modules.module_2,
-                consumer.Root.auron.modules.module_3,
-                consumer.Root.auron.modules.module_4,
-                consumer.Root.auron.modules.module_5,
-                consumer.Root.auron.modules.module_6,
-                consumer.Root.auron.modules.module_7,
-                consumer.Root.auron.modules.module_8,
-                consumer.Root.auron.modules.module_9,
-                consumer.Root.auron.modules.module_10
-            };
-
 
             List<IParameter> buttonParams = new List<IParameter>();
 
-            int aantalMoules = modules.Length;
-            //int aantalMoules = 1;
 
             // Group 1: Add states for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)
@@ -187,7 +191,7 @@ namespace EmberPlusWinForms
             }
 
             var buttons = new List<Button>();
-            for (int i = 1; i <= 40; i++)
+            for (int i = 1; i <= (aantalMoules * 4); i++)   //40
             {
                 var button = (Button)Controls["button" + i];
                 buttons.Add(button);
@@ -235,7 +239,7 @@ namespace EmberPlusWinForms
 
                 if (faderParams != null && i < faderParams.Count)
                 {
-                    _ = faderManager.SyncTrackBarToEmberAsync(trackBars[i], faderParams[i], i);
+                    _ = faderManager.SyncTrackBarToEmberAsync(trackBars[i], faderParams[i]);
                 }
             }
         }

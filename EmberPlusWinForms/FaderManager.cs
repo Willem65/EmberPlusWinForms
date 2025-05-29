@@ -42,12 +42,12 @@ namespace EmberPlusWinForms
                 
                 trackBar.Scroll += async (s, e) =>                // Handle sending outgoing data (Button click sends value to Ember+)
                 {
-                    await SyncTrackBarToEmberAsync(trackBar, faderParam, index);
+                    await SyncTrackBarToEmberAsync(trackBar, faderParam);
                 };
             }
         }
        
-        public async Task SyncTrackBarToEmberAsync(TrackBar tb, IParameter param, int index)     // Om een waarde voor de trackbar scroll te verzenden
+        public async Task SyncTrackBarToEmberAsync(TrackBar tb, IParameter param)     // Om een waarde voor de trackbar scroll te verzenden
         {
             param.Value = (long)tb.Value;
             if (Form1.instanse.checkboxloggingEnabled)

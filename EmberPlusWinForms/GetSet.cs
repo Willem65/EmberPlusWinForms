@@ -35,25 +35,25 @@ namespace EmberPlusWinForms
             [Element(Identifier = "module_3")]
             internal Module module_3 { get; private set; }
 
-            [Element(Identifier = "module_4")]
-            internal Module module_4 { get; private set; }
+            //[Element(Identifier = "module_4")]
+            //internal Module module_4 { get; private set; }
 
-            [Element(Identifier = "module_5")]
-            internal Module module_5 { get; private set; }
+            //[Element(Identifier = "module_5")]
+            //internal Module module_5 { get; private set; }
 
-            [Element(Identifier = "module_6")]
-            internal Module module_6 { get; private set; }
-            [Element(Identifier = "module_7")]
-            internal Module module_7 { get; private set; }
+            //[Element(Identifier = "module_6")]
+            //internal Module module_6 { get; private set; }
+            //[Element(Identifier = "module_7")]
+            //internal Module module_7 { get; private set; }
 
-            [Element(Identifier = "module_8")]
-            internal Module module_8 { get; private set; }
+            //[Element(Identifier = "module_8")]
+            //internal Module module_8 { get; private set; }
 
-            [Element(Identifier = "module_9")]
-            internal Module module_9 { get; private set; }
+            //[Element(Identifier = "module_9")]
+            //internal Module module_9 { get; private set; }
 
-            [Element(Identifier = "module_10")]
-            internal Module module_10 { get; private set; }
+            //[Element(Identifier = "module_10")]
+            //internal Module module_10 { get; private set; }
         }
 
 
@@ -100,12 +100,12 @@ namespace EmberPlusWinForms
 
         public sealed class Path : FieldNode<Path>
         {
-            [Element(Identifier = "eq")]
-            internal BooleanParameter eq { get; private set; }
+            //[Element(Identifier = "eq")]
+            //internal BooleanParameter eq { get; private set; }
 
             [Element(Identifier = "fader")]
             internal IntegerParameter fader { get; private set; }
-            
+
         }
 
         /*
