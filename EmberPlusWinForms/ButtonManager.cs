@@ -1,12 +1,10 @@
-﻿using Lawo;
-using Lawo.EmberPlusSharp.Model;
+﻿using Lawo.EmberPlusSharp.Model;
 
 namespace EmberPlusWinForms
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     class ButtonManager
@@ -20,14 +18,11 @@ namespace EmberPlusWinForms
             _buttons = buttons;
         }
 
-        private bool isOn = true;
-        private bool state;
-
         public void InitializeButtons()
         {
             for (int i = 0; i < _buttons.Count; i++)   // 40
             {
-                int index = i;
+                int index = i;                         // index copy is nodig, omdat het vanuit async event handlers wordt aangeroepen
                 var button = _buttons[index];          // Op dit moment staan er meteen al 40 buttons in een array
                 var parameter = _parameters[index];    // Op dit moment staan er meteen al 160 parameters in een array,
                                                        // namelijk 0-40 de state van de button,
@@ -35,9 +30,8 @@ namespace EmberPlusWinForms
                                                        // 80-120 de on_color
                                                        // 120-160 de off_color van de button
 
-                parameter.PropertyChanged += async (sender, args) =>   // Receiving data (Ember+ update UI)
+                parameter.PropertyChanged += (sender, args) =>   // Receiving data (Ember+ update UI)
                 {
-                    await Task.CompletedTask;
                     var param = sender as IParameter;
                     button.Text = param.Path[2].ToString() + "_" + param.Path[4].ToString();  // Tijdelijk even de knop nummers weergeven
                     button.BackColor = DetermineBackColor((bool)param.Value, index);
@@ -63,7 +57,7 @@ namespace EmberPlusWinForms
             else 
                 offset = _buttons.Count * 3;  // De off_color vanaf 120
 
-            return Convert.ToInt32(_parameters[index + offset].Value) switch
+            var btncolor = Convert.ToInt32(_parameters[index + offset].Value) switch
             {
                 0 => Color.Transparent,
                 1 => Color.LightSalmon,
@@ -71,6 +65,8 @@ namespace EmberPlusWinForms
                 3 => Color.Yellow,
                  _ => Color.Transparent   // Default , voor de veiligheid, als er een onbekende waarde is
             };
+
+            return btncolor;
         }
     }
 }

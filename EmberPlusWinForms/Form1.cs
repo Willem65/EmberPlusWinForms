@@ -1,6 +1,5 @@
 ﻿using Lawo.EmberPlusSharp.Model;
 using Lawo.EmberPlusSharp.S101;
-using System.Net;
 using System.Net.Sockets;
 using Button = System.Windows.Forms.Button;
 using TrackBar = System.Windows.Forms.TrackBar;
@@ -48,11 +47,6 @@ namespace EmberPlusWinForms
         private static async Task<S101Client> ConnectAsync(string host, int port)
         {
             var tcpClient = new TcpClient();
-            //if (tcpClient.Connected == true)
-            //{
-            //    Form1.instanse.listBox1.Items.Add("Connection lost or wrong IP");
-            //    Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-            //}
             await tcpClient.ConnectAsync(host, port); // Ensure this is awaited
             NetworkStream stream = tcpClient.GetStream();
             await Task.Delay(300); // Optional delay if needed
@@ -61,9 +55,9 @@ namespace EmberPlusWinForms
             //return new S101Client(tcpClient, stream.ReadAsync, stream.WriteAsync);
         }
 
-        private sealed class MyRoot : DynamicRoot<MyRoot>
-        {
-        }
+        //private sealed class MyRoot : DynamicRoot<MyRoot>
+        //{
+        //}
 
         //-------------- Start -----------------------------------------------------------------------------------------------------------------------
 
@@ -76,7 +70,7 @@ namespace EmberPlusWinForms
             using var client = await ConnectAsync(ipaddress, 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             root = consumer.Root;
-
+            
             var modules = new[]
 {
                 consumer.Root.auron.modules.module_1,
@@ -94,7 +88,7 @@ namespace EmberPlusWinForms
             int aantalMoules = modules.Length;
             //int aantalMoules = 1;
 
-
+            
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------
             // First, gather your modules into an array for easier iteration.
             //
@@ -173,8 +167,8 @@ namespace EmberPlusWinForms
 
             var buttonManager = new ButtonManager(buttonParams, buttons);
             buttonManager.InitializeButtons();
-
             await Task.Delay(Timeout.Infinite);
+
         }
 
 
@@ -188,7 +182,7 @@ namespace EmberPlusWinForms
         static int tellertje;
         private List<TrackBar> trackBars;
         private List<Button> buttons;
-        private object lstdata;
+
 
 
         private void timer1_Tick(object sender, EventArgs e)  // om de faders even te laten bewegen
@@ -213,7 +207,7 @@ namespace EmberPlusWinForms
 
                 if (faderParams != null && i < faderParams.Count)
                 {
-                    _ = faderManager.SyncTrackBarToEmberAsync(trackBars[i], faderParams[i]);
+                    FaderManager.SyncTrackBarToEmberAsync(trackBars[i], faderParams[i]);
                 }
             }
         }

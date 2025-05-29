@@ -18,14 +18,15 @@ namespace EmberPlusWinForms
         {           
             for (int i = 0; i < _faderParams.Count; i++)
             {
-                int index = i;
-                var faderParam = _faderParams[index];
-                var trackBar = _trackBars[index];
+                int index = i;                        // index copy is nodig, omdat het vanuit async event handlers wordt aangeroepen
+                var trackBar = _trackBars[index];        // Op dit moment staan er meteen  10 faders in een array
+                var faderParam = _faderParams[index];    // en ook 10 keer de faderparameter in een array 
+
                 trackBar.Value = (int)(long)_faderParams[index].Value;
 
-                faderParam.PropertyChanged += async (sender, args) =>        // Handle receiving data (Ember+ update UI)
+                faderParam.PropertyChanged +=  (sender, args) =>        // Handle receiving data (Ember+ update UI)
                 {
-                    await Task.Delay(20); // Simulating async work
+                   // await Task.Delay(20); // Simulating async work
                     long updatedValue = (long)((IParameter)sender).Value;
                     int clampedValue = Math.Min(Math.Max((int)updatedValue, trackBar.Minimum), trackBar.Maximum);
                     if (trackBar.Value != clampedValue)
@@ -34,17 +35,17 @@ namespace EmberPlusWinForms
                     {
                         Form1.instanse.listBox1.Items.Add("IN <---- " + updatedValue.ToString());
                         Form1.instanse.listBox1.SelectedIndex = Form1.instanse.listBox1.Items.Count - 1;
-                    };
+                    }
                 };
                 
-                trackBar.Scroll += async (s, e) =>                // Handle sending outgoing data (Button click sends value to Ember+)
+                trackBar.Scroll +=  (s, e) =>                // Handle sending outgoing data (Button click sends value to Ember+)
                 {
-                    await SyncTrackBarToEmberAsync(trackBar, faderParam);
+                    SyncTrackBarToEmberAsync(trackBar, faderParam);
                 };
             }
         }
        
-        public async Task SyncTrackBarToEmberAsync(TrackBar tb, IParameter param)     // Om een waarde voor de trackbar scroll te verzenden
+        public static void SyncTrackBarToEmberAsync(TrackBar tb, IParameter param)     // Om een waarde voor de trackbar scroll te verzenden
         {
             param.Value = (long)tb.Value;
             if (Form1.instanse.checkboxloggingEnabled)
