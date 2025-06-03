@@ -1,6 +1,8 @@
 ﻿using Lawo.EmberPlusSharp.Model;
 using Lawo.EmberPlusSharp.S101;
+using Lawo.Reflection;
 using System.Net.Sockets;
+using static EmberPlusWinForms.GetSet;
 using Button = System.Windows.Forms.Button;
 using TrackBar = System.Windows.Forms.TrackBar;
 // kleine test3
@@ -70,25 +72,26 @@ namespace EmberPlusWinForms
             using var client = await ConnectAsync(ipaddress, 9000);
             consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
             root = consumer.Root;
-            
+
+            // Fix for CS0825: Replace 'var' with the explicit type 'GetSet.module_1' for the array declaration.
             var modules = new[]
-{
+            {
                 consumer.Root.auron.modules.module_1,
                 consumer.Root.auron.modules.module_2,
                 consumer.Root.auron.modules.module_3,
-                //consumer.Root.auron.modules.module_4,
-                //consumer.Root.auron.modules.module_5,
-                ////consumer.Root.auron.modules.module_6,
-                ////consumer.Root.auron.modules.module_7,
-                //consumer.Root.auron.modules.module_8,
-                //consumer.Root.auron.modules.module_9,
-                //consumer.Root.auron.modules.module_10
+                consumer.Root.auron.modules.module_4,
+                consumer.Root.auron.modules.module_5,
+                consumer.Root.auron.modules.module_6,
+                consumer.Root.auron.modules.module_7,
+                consumer.Root.auron.modules.module_8,
+                consumer.Root.auron.modules.module_9,
+                consumer.Root.auron.modules.module_10
             };
 
             int aantalMoules = modules.Length;
-            //int aantalMoules = 1;
+            ////int aantalMoules = 1;
 
-            
+
             //------------- Faders ------------------------------------------------------------------------------------------------------------------------
             // First, gather your modules into an array for easier iteration.
             //
@@ -97,17 +100,17 @@ namespace EmberPlusWinForms
                 consumer.Root.auron.modules.module_1.path.fader,
                 consumer.Root.auron.modules.module_2.path.fader,
                 consumer.Root.auron.modules.module_3.path.fader,
-                //consumer.Root.auron.modules.module_4.path.fader,
-                //consumer.Root.auron.modules.module_5.path.fader,
-                ////consumer.Root.auron.modules.module_6.path.fader,
-                ////consumer.Root.auron.modules.module_7.path.fader,
-                //consumer.Root.auron.modules.module_8.path.fader,
-                //consumer.Root.auron.modules.module_9.path.fader,
-                //consumer.Root.auron.modules.module_10.path.fader
+                consumer.Root.auron.modules.module_4.path.fader,
+                consumer.Root.auron.modules.module_5.path.fader,
+                consumer.Root.auron.modules.module_6.path.fader,
+                consumer.Root.auron.modules.module_7.path.fader,
+                consumer.Root.auron.modules.module_8.path.fader,
+                consumer.Root.auron.modules.module_9.path.fader,
+                consumer.Root.auron.modules.module_10.path.fader
             };
 
             var trackBars = new List<TrackBar>();
-            for (int i = 1; i <= aantalMoules; i++)
+            for (int i = 1; i <= faderParams.Count; i++)
             {
                 var trackBar = (TrackBar)Controls["trackBar" + i];
                 trackBars.Add(trackBar);
@@ -117,7 +120,7 @@ namespace EmberPlusWinForms
             faderManager.InitializeFaders();
 
             //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
-            
+
 
             List<IParameter> buttonParams = new List<IParameter>();
 
