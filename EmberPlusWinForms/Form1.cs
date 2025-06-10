@@ -1,10 +1,10 @@
 ﻿using Lawo.EmberPlusSharp.Model;
 using Lawo.EmberPlusSharp.S101;
-using Lawo.Reflection;
 using System.Net.Sockets;
-using static EmberPlusWinForms.GetSet;
+using System.Runtime.InteropServices;
 using Button = System.Windows.Forms.Button;
 using TrackBar = System.Windows.Forms.TrackBar;
+
 // kleine test3
 namespace EmberPlusWinForms
 {
@@ -43,6 +43,7 @@ namespace EmberPlusWinForms
             Task startEmberPlusListenerAsync = StartEmberPlusListenerAsync();
             faderManager = new FaderManager(faderParams, trackBars);
             buttonManager = new ButtonManager(faderParams, buttons);
+
         }
 
 
@@ -67,13 +68,24 @@ namespace EmberPlusWinForms
         private List<IParameter> faderParams;
         private INode root;
 
+        private CancellationTokenSource? cancellationTokenSource;
+
         private async Task StartEmberPlusListenerAsync()
         {
-            using var client = await ConnectAsync(ipaddress, 9000);
-            consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+            cancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                using var client = await ConnectAsync(ipaddress, 9000);
+                consumer = await Consumer<GetSet.AuronRoot>.CreateAsync(client);
+                root = consumer.Root;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to connect: {ex.Message}", "Greeting", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; // Exit early if the connection fails
+            }
             root = consumer.Root;
 
-            // Fix for CS0825: Replace 'var' with the explicit type 'GetSet.module_1' for the array declaration.
             var modules = new[]
             {
                 consumer.Root.auron.modules.module_1,
@@ -89,12 +101,7 @@ namespace EmberPlusWinForms
             };
 
             int aantalMoules = modules.Length;
-            ////int aantalMoules = 1;
 
-
-            //------------- Faders ------------------------------------------------------------------------------------------------------------------------
-            // First, gather your modules into an array for easier iteration.
-            //
             faderParams = new List<IParameter>
             {
                 consumer.Root.auron.modules.module_1.path.fader,
@@ -119,13 +126,8 @@ namespace EmberPlusWinForms
             var faderManager = new FaderManager(faderParams, trackBars);
             faderManager.InitializeFaders();
 
-            //-------------- Buttons -----------------------------------------------------------------------------------------------------------------------
-
-
             List<IParameter> buttonParams = new List<IParameter>();
 
-
-            // Group 1: Add states for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.state);
@@ -134,7 +136,6 @@ namespace EmberPlusWinForms
                 buttonParams.Add(modules[i].control.sw_4.state);
             }
 
-            // Group 2: Add modes for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.mode);
@@ -143,7 +144,6 @@ namespace EmberPlusWinForms
                 buttonParams.Add(modules[i].control.sw_4.mode);
             }
 
-            // Group 3: Add color_on for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.color_on);
@@ -152,7 +152,6 @@ namespace EmberPlusWinForms
                 buttonParams.Add(modules[i].control.sw_4.color_on);
             }
 
-            // Group 4: Add color_off for sw_1 through sw_4
             for (int i = 0; i < aantalMoules; i++)
             {
                 buttonParams.Add(modules[i].control.sw_1.color_off);
@@ -162,16 +161,16 @@ namespace EmberPlusWinForms
             }
 
             var buttons = new List<Button>();
-            for (int i = 1; i <= (aantalMoules * 4); i++)   //40
+            for (int i = 1; i <= (aantalMoules * 4); i++)
             {
                 var button = (Button)Controls["button" + i];
                 buttons.Add(button);
             }
 
             var buttonManager = new ButtonManager(buttonParams, buttons);
-            buttonManager.InitializeButtons();
-            await Task.Delay(Timeout.Infinite);
+            buttonManager.InitializeButtonsAsync();
 
+            await Task.Delay(Timeout.Infinite, cancellationTokenSource.Token);
         }
 
 
@@ -249,6 +248,7 @@ namespace EmberPlusWinForms
         {
             startIPverbinding();
         }
+
         private async void startIPverbinding()
         {
             ipaddress = textBox2.Text;
@@ -277,5 +277,54 @@ namespace EmberPlusWinForms
         {
 
         }
+
+
+        // -----------Het zonder meer laten knipperen van de buttons--------------------------------------------
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            int aantalbuttons = 40;
+
+            Button[] buttons = new Button[40];
+
+            for (int i = 0; i < aantalbuttons; i++)
+            {
+                buttons[i] = (Button)Controls["button" + (i + 1)]; // Finds button by name
+            }
+
+
+            for (int i = 0; i < aantalbuttons; i++)
+            {
+                ButtonSimulator.SimulateButtonPress(buttons[i]);
+            }
+        }
+
+
+        public class ButtonSimulator
+        {
+            [DllImport("user32.dll")]
+            private static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+            private const int WM_LBUTTONDOWN = 0x201;
+            private const int WM_LBUTTONUP = 0x202;
+
+            public static void SimulateButtonPress(Button button)
+            {
+                if (button != null)
+                {
+                    IntPtr handle = button.Handle;
+                    SendMessage(handle, WM_LBUTTONDOWN, IntPtr.Zero, IntPtr.Zero);
+                    SendMessage(handle, WM_LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
+                }
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            timer2.Enabled = checkBox3.Checked;
+        }
+
+//---------------------------------------------------------------------------------------
+
     }
 }

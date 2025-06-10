@@ -85,6 +85,8 @@
             timer1 = new System.Windows.Forms.Timer(components);
             checkBox2 = new CheckBox();
             ipbutton = new Button();
+            timer2 = new System.Windows.Forms.Timer(components);
+            checkBox3 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
@@ -657,12 +659,29 @@
             ipbutton.UseVisualStyleBackColor = true;
             ipbutton.Click += ipbutton_Click;
             // 
+            // timer2
+            // 
+            timer2.Interval = 2000;
+            timer2.Tick += timer2_Tick;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(415, 13);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(113, 19);
+            checkBox3.TabIndex = 56;
+            checkBox3.Text = "Clicking buttons";
+            checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox3_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1471, 745);
+            Controls.Add(checkBox3);
             Controls.Add(ipbutton);
             Controls.Add(checkBox2);
             Controls.Add(button21);
@@ -794,5 +813,7 @@
         private System.Windows.Forms.Timer timer1;
         private CheckBox checkBox2;
         private Button ipbutton;
+        private System.Windows.Forms.Timer timer2;
+        private CheckBox checkBox3;
     }
 }
